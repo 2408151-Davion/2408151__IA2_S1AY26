@@ -1,0 +1,304 @@
+
+html {
+  font-size: 16px;
+  font-family: system-ui, "Segoe UI", Roboto, Arial;
+  color: #0f1724;
+  background: #f7fafc;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.about-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.about-container>p {
+  font-size: 20px;
+}
+
+.site-header {
+  background: linear-gradient(90deg, #0b72b9, #06649a);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+}
+
+.logo img {
+  height: auto;
+  width: 120px;
+  border-radius: 8px;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  display: inline-block;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.main-nav a:hover,
+.main-nav a:focus {
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+  transform: translateY(-2px);
+  transition: transform .18s ease;
+}
+
+.hero {
+  padding: 2rem 0;
+}
+
+.hero-grid {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hero-text {
+  flex: 1 1 380px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile img {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+  border-radius: 50%;
+  display: block;
+  border: 6px solid #ffffff;
+  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.12);
+  transition: transform .3s ease;
+}
+
+.profile a:hover img {
+  transform: scale(1.03) rotate(-1deg);
+}
+
+.demographic,
+.subtitle {
+  margin-bottom: 20px;
+}
+
+.demographic {
+  list-style: none;
+}
+
+.btn {
+  background: #0b72b9;
+  color: white;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 700;
+  transition: all .25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(11, 114, 185, 0.18);
+}
+
+.about-container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section {
+  margin: 1.25rem 0;
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e6eef7;
+  padding: 1.25rem;
+  box-shadow: 0 6px 18px rgba(9, 30, 63, 0.04);
+}
+
+.resume-grid {
+  /* display: flex;  */
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.resume_title {
+  text-align: center;
+  margin-bottom: 50px;
+  background-color: #0b72b9;
+  padding: 10px;
+}
+
+#resume_title_h2 {
+  color: #e0e3e9;
+}
+
+.slogan {
+  font-style: italic;
+}
+
+.data_rows {
+  display: flex;
+  gap: 4rem;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #0f1724;
+}
+
+.data_headings {
+  flex: 0 0 240px;
+  padding-right: 1rem;
+}
+
+.data_content {
+  flex: 1;
+  padding-left: 1rem;
+}
+
+.about-container h2 {
+  color: #0b72b9;
+}
+
+.subtitles {
+  color: #0b72b9;
+}
+
+#hero-description {
+  width: 80%;
+  text-align: justify;
+}
+
+.fav-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+}
+
+.fav-table th,
+.fav-table td {
+  border: 1px solid #eef3f7;
+  padding: 0.6rem;
+  text-align: left;
+}
+
+.fav-table thead {
+  background: #f2f8fd;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.logo img {
+  animation: float 6s ease-in-out infinite;
+}
+
+@media (min-width: 600px) {
+  .hero-grid {
+    grid-template-columns: 1fr 240px;
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    align-items: center;
+  }
+
+  .about-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 950px) {
+  html {
+    font-size: 18px;
+  }
+
+  .about-container {
+    max-width: 1200px;
+  }
+
+  .header-inner {
+    padding: 1rem 0;
+  }
+
+  .resume-grid {
+    gap: 2rem;
+  }
+
+  .profile img {
+    width: 260px;
+    height: 260px;
+  }
+}
+
+
+.footer-card {
+  background: transparent;
+  text-align: center;
+  padding: 1.25rem;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 0.75rem 0;
+  background: transparent;
+  color: #6b7280;
+  border-top: 1px solid #e8eef6;
+}
+
+
+a:focus {
+  outline: 3px solid rgba(11, 114, 185, 0.18);
+  outline-offset: 3px;
+}
+
+.section {
+  margin-bottom: 1.25rem;
+  border: 1px solid #eef5fb;
+  padding: 1rem;
+  border-radius: 10px;
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="E-commerce Coffee Website">
+        <meta name="keywords" content="Coffee" >
+        <meta name="author" content="Davion Spaulding-Bowen">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Coffee Den</title>
+        <link rel="stylesheet" href="/css/auth.css">
+        <script type="module" src="/js/userAuth.js"></script>
+    </head>
+    
+    <body>
+    <div class="container" role="main">
+        <!-- Left: info -->
+        <section class="hero" aria-labelledby="welcome-heading">
+        <h1 id="welcome-heading">Welcome — create an account or sign in</h1>
+        <p>
+            SERVING THE WORLD'S FIRST SPECIALTY GRADE ROBUSTA BEANS ON THE MARKET. 
+            WE ARE INNOVATORS IN THE COFFEE INDUSTRY. WITH COFFEE SHOPS ACROSS JAMAICA, 
+            COME SOAK UP THE VIBE AND ENJOY A PERFECT CUP.
+        </p>
+        
+        </section>
+
+        <!-- Right: card with forms -->
+        <aside class="card" aria-labelledby="auth-heading">
+            <h2 id="auth-heading" style="margin:0 0 12px;font-size:18px">Account</h2>
+
+            <div class="tabs" role="tablist" aria-label="Authentication tabs">
+                <div id="tab-login" class="tab active" role="tab" aria-selected="false" tabindex="0">Login</div>
+                <div id="tab-register" class="tab inactive" role="tab" aria-selected="true" tabindex="0">Register</div>
+            </div>
+
+            <!-- Registration form -->
+            <form id="register-form" style="display:none;margin-top:6px" novalidate>
+                <div class="field row">
+                    <div class="field">
+                        <label for="firstName">First name</label>
+                        <input id="firstName" name="firstName" type="text" inputmode="text" autocomplete="given-name" required />
+                        <div class="error" id="err-firstName" aria-live="polite" style="display:none"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="lastName">Last name</label>
+                        <input id="lastName" name="lastName" type="text" autocomplete="family-name" required />
+                        <div class="error" id="err-lastName" aria-live="polite" style="display:none"></div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="userName">Username</label>
+                    <input id="userName" name="userName" type="text" autocomplete="family-name" required />
+                    <div class="error" id="err-userName" aria-live="polite" style="display:none"></div>
+                </div>
+
+                <div class="field">
+                <label for="reg-email">Email</label>
+                <input id="reg-email" name="email" type="email" autocomplete="email" required />
+                <div class="error" id="err-email" aria-live="polite" style="display:none"></div>
+                </div>
+
+                <div class="field">
+                <label for="reg-password">Password</label>
+                <input id="reg-password" name="password" type="password" autocomplete="new-password" minlength="8" required />
+                <div class="hint">At least 8 characters. Use a mix of letters and numbers.</div>
+                <div class="error" id="err-password" aria-live="polite" style="display:none"></div>
+                </div>
+
+                <div class="field">
+                <label for="confirm-password">Confirm password</label>
+                <input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" required />
+                <div class="error" id="err-confirm" aria-live="polite" style="display:none"></div>
+                </div>
+
+                <div class="field">
+                <label>
+                    <input id="terms" name="terms" type="checkbox" required /> I agree to the <a href="#" onclick="event.preventDefault()">terms and conditions</a>
+                </label>
+                <div class="error" id="err-terms" aria-live="polite" style="display:none"></div>
+                </div>
+
+                <button class="btn" type="submit">Create account</button>
+
+                <div class="secondary">
+                Already have an account? <a href="#" id="to-login">Sign in</a>
+                </div>
+            </form>
+
+            
+            <form id="login-form" novalidate method="post">
+                <div class="field">
+                    <label for="login-identifier">Email or Username</label>
+                    <input id="login-identifier" name="identifier" type="text" autocomplete="username" required />
+                    <div class="error" id="err-identifier" aria-live="polite" style="display:none"></div>
+                </div>
+
+                <div class="field">
+                    <label for="login-password">Password</label>
+                    <input id="login-password" name="password" type="password" autocomplete="current-password" required />
+                    <div class="error" id="err-login-password" aria-live="polite" style="display:none"></div>
+                </div>
+                
+                <div class="error" id="err-failed" aria-live="polite" style="display:none"></div>
+
+                <div class="field" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label style="font-size:14px;">
+                        <input id="remember" name="remember" type="checkbox" /> Remember me
+                    </label>
+                    <a href="#" onclick="event.preventDefault(); alert('Implement password reset flow')">Forgot?</a>
+                </div>
+
+                <button class="btn" type="submit">Sign in</button>
+
+                <div class="secondary">
+                    New here? <a href="#" id="to-register">Create an account</a>
+                </div>
+            </form>
+        </aside>
+    </div>
+    </body>
+</html>

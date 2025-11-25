@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="E-commerce Coffee Website">
+        <meta name="keywords" content="Coffee" >
+        <meta name="author" content="Davion Spaulding-Bowen">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Coffee Den.</title>
+        <!-- <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <!-- <script type="module" src="/js/index.js"></script> -->
+        <script type="module" src="/js/invoice.js"></script>
+    </head>
+    <body>
+        <header class="header-two">
+            <div class="nav-belt">
+                <div class="nav-left">
+                    <div class="logo">
+                        <a href="/index.html">
+                            <img src="/assets/logo_white.png" style="width: 100px;" alt="Logo.">
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-fill">
+                    <h1 class="invoice-title">INVOICE</h1>
+                </div>
+                <div class="nav-right">                
+                    
+                </div>
+            </div>
+        </header>
+        <div class="invoice-container">
+
+            <div class="header">
+                <div>
+                    <p>Invoice #: <span id="invoiceNumber"></span></p>
+                    <p>Date: <span id="invoiceDate"></span></p>
+                </div>
+
+                <div>
+                    <h3>Your Store Name</h3>
+                    <p>123 Main Street</p>
+                    <p>Your City, Country</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+            </div>
+
+            <div class="info">
+                <h3>Bill To:</h3>
+                <p id="customerName"></p>
+                <p id="customerEmail"></p>
+            </div>
+
+            <table id="invoiceTable">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th width="80">Qty</th>
+                        <th width="120">Price</th>
+                        <th width="120">Total</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="totals">
+                <div>
+                    <span>Subtotal:</span>
+                    <span id="subtotalAmount">$0</span>
+                </div>
+                <div>
+                    <span>Tax (15%):</span>
+                    <span id="taxAmount">$0</span>
+                </div>
+                <div style="font-weight: bold; font-size: 20px;">
+                    <span>Total:</span>
+                    <span id="totalAmount">$0</span>
+                </div>
+            </div>
+
+            <button id="downloadBtn">Download Invoice</button>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="E-commerce Coffee Website">
+    <meta name="keywords" content="Coffee">
+    <meta name="author" content="Davion Spaulding-Bowen">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Den.</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="module" src="/js/index.js"></script>
+    <script type="module" src="/js/checkout.js"></script>
+    <!-- <script type="module" src="/js/cart.js"></script>
+    <script type="module" src="/js/products.js"></script> -->
+</head>
+
+<body>
+    <header class="header-two">
+        <div class="nav-belt">
+            <div class="nav-left">
+                <div class="logo">
+                    <a href="/index.html">
+                        <img src="/assets/logo_white.png" style="width: 100px;" alt="Logo.">
+                    </a>
+                </div>
+            </div>
+            <div class="nav-fill">Checkout
+                <!-- <img class="shopping-cart" src="/assets/shopping-cart.png"> -->
+            </div>
+            <div class="nav-right">
+                <a href="/pages/cart/cart.html">cancel</a>
+            </div>
+        </div>
+    </header>
+    <div class="checkout-container">
+        <div class="checkout-right-side">
+            <div id="checkout-container" class="confirm-checkout-container">
+                <div class="checkout-details">
+                    <p id="sub-total-price"></p>
+                    <p id="discount"></p>
+                    <p id="discounted-amt"></p>
+                    <p id="tax"></p>
+                    <p id="taxed-amt"></p>
+                    <p id="grand-total"></p>
+                </div>
+                <button id="confirm-checkout-btn" class="checkout-btn">
+                    Confirm checkout
+                    <img class="shopping-cart" src="/assets/shopping-cart.png">
+                </button>
+            </div>
+        </div>
+        <div id="" class="checkout-left-side">
+            <div class="payment-method">
+                <div class="add-payment-method">
+                    <div class="horizontal-line">
+                        <hr>
+                    </div>
+                    <a href="#" data-action="a-add-card-popover-open" class="add-payment-method-btn">
+                        Add debit or credit card
+                        <span>></span>
+                    </a>
+                    <div class="cards-list-container">
+                        <div class="card-list-heading">
+                            <div class="a-span6"></div>
+                            <div class="cardholder-name-heading a-span3">
+                                <span class="secondary-text-color"> 
+                                    Name on card
+                                </span>
+                            </div>
+                            <div class="a-text-right a-span3 expiresOn">
+                                <span class="secondary-text-color">Expires on</span>
+                            </div>
+                        </div>
+                        <ul class="cards-list" id="list-of-cards">
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="popover-container">
+                    <div id="checkoutErrorMessage" class="error-box error"  style="display: none;">
+
+                    </div>
+                    <div class="loader">
+                        <img src="/assets/loading-4x._CB485930688_.gif">
+                    </div>
+                    <div class="inner-popover" style="display: none;">
+                        <div class="popover-header">
+                            <h4 class="a-popover-header-content">Add a debit or credit card</h4>
+                            <button data-action="a-popover-close" class="a-popover-close-btn">X</button>
+                        </div>
+                        <form id="card-details-form" class="add-card-form" action="" novalidate>
+                            <div class="popover-content-section a-row a-spacing-base">
+                                <div id="card-details-form-wrapper" class="a-span7">
+                                    <!-- <form id="card-details-form" class="add-card-form" action="" novalidate> -->
+                                    <div id="add-card-number" class="a-row a-sm-mb">
+                                        <div class="a-span4 a-text-right">
+                                            <label id="add-card-number-label" for="card-number"
+                                                class="a-form-label">Card Number</label>
+                                        </div>
+                                        <div class="a-span8">
+                                            <input id="card-number" name="addCardNumber" type="tel"
+                                                class="a-input-text">
+                                        </div>
+                                    </div>
+                                    <div id="add-cardholder-name" class="a-row a-sm-mb">
+                                        <div class="a-span4 a-text-right">
+                                            <label id="add-cardholder-label" for="cardholder" class="a-form-label">Name
+                                                on card</label>
+                                        </div>
+                                        <div class="a-span8">
+                                            <input id="cardholder" name="addCardholderName" type="text"
+                                                class="a-input-text">
+                                        </div>
+                                    </div>
+                                    <div id="add-card-expiry-date" class="a-row a-sm-mb">
+                                        <div class="a-span4 a-text-right">
+                                            <label id="add-card-expiry-label" for="add-card-expiration-date"
+                                                class="a-form-label">Expiration date</label>
+                                        </div>
+                                        <div class="a-span8 a-row">
+                                            <div class="a-row">
+                                                <div class=" d-flex gp-4">
+                                                    <span class="selection-wrapper"
+                                                        id="card-expiration-date-selection-wrapper">
+                                                        <select id="add-card-expiration-date" class="select-dropdown"
+                                                            name="addCardExpiryDate">
+                                                            <option value="01" selected>01</option>
+                                                            <option value="02">02</option>
+                                                            <option value="03">03</option>
+                                                            <option value="04">04</option>
+                                                            <option value="05">05</option>
+                                                            <option value="06">06</option>
+                                                            <option value="07">07</option>
+                                                            <option value="08">08</option>
+                                                            <option value="09">09</option>
+                                                            <option value="10">10</option>
+                                                            <option value="11">11</option>
+                                                            <option value="12">12</option>
+                                                        </select>
+                                                    </span>
+                                                    <span class="selection-wrapper">
+                                                        <select name="addCardExpiryYear" id="add-card-expiry-year"
+                                                            class="select-dropdown">
+                                                            <option value="2025" selected>2025</option>
+                                                            <option value="2026">2026</option>
+                                                            <option value="2027">2027</option>
+                                                            <option value="2028">2028</option>
+                                                            <option value="2029">2029</option>
+                                                            <option value="2030">2030</option>
+                                                            <option value="2031">2031</option>
+                                                            <option value="2032">2032</option>
+                                                            <option value="2033">2033</option>
+                                                            <option value="2034">2034</option>
+                                                            <option value="2035">2035</option>
+                                                            <option value="2036">2036</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="cvv" class="a-row a-sm-mb">
+                                        <div class="a-span4 a-text-right">
+                                            <label id="add-cvv-label" for="cvv-number" class="a-form-label">CVV</label>
+                                        </div>
+                                        <div class="a-span8">
+                                            <input id="cvv-number" type="tel" class="a-input-text" maxlength="3"
+                                                size="4">
+                                        </div>
+                                    </div>
+                                    <!-- </form> -->
+                                </div>
+                                <div class="popover-right-column a-span4">
+                                    <p>Coffee Den accepts all major credit and debit cards:</p>
+                                    <div class="pmts-composite-logo-row">
+                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-1"></span>
+                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-2"></span>
+                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-3"></span>
+                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-4"></span>
+                                    </div>
+                                    <div class="pmts-composite-logo-row">
+                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-5"></span>
+                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-6"></span>
+                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-7"></span>
+                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-8"></span>
+                                    </div>
+                                    <div class="pmts-composite-logo-row">
+                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-9"></span>
+                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-10"></span>
+                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-11"></span>
+                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-12"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popover-footer">
+                                <button data-action="a-popover-close" id="add-pmts-cancel-btn"
+                                    class="cancel-btn">Cancel</button>
+                                <button data-action="add-card" id="add-pmts-submit-btn" class="submit-btn" type="submit">Add your
+                                    card</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="shopping-cart-container" class="checkout-list-container">
+                <ul id="checkout-cart-items"></ul>
+            </div>
+        </div>
+
+    </div>
+    <footer>
+        <div class="footer-logo">
+            <img src="/assets/logo_white.png" alt="">
+        </div>
+        <div class="footer-content">
+            <p>&copy; Coffee Den. 2025 | Powered By: Davion Spaulding-Bowen - 2408151</p> <br><br>
+            <address>
+                Address: <br>
+                46th Main Street, <br>
+                Old Bucks Field, <br>
+                Ocho Rios, St. Ann <br>
+                Jamaica
+            </address>
+            <br><br>
+            <p>Tel: <i>+1 (876) 810-8147</i></p>
+            <p>Email: <i>davionpspaulding-bowen@students.utech.edu.jm</i></p>
+        </div>
+    </footer>
+</body>
+
+</html>
