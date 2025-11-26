@@ -161,8 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if(valid){
                 registerUser(firstName, lastName, userName, email, password, terms);
                 console.log(localStorage.getItem("users"));
-                // alert('Registration validated (client-side). Hook up the /api/register endpoint to create accounts.');
-                registerForm.reset();
                 login(userName, password)
                 // showLogin();
             }
