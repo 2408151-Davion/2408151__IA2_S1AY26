@@ -5,7 +5,7 @@ import { loadCart } from "./cart.js";
 
 const currentPath = window.location.pathname;
 const container = document.getElementById("product-container");
-const productPage = "/pages/shop/products/product.html";
+const productPage = "/2408151__IA2_S1AY26/pages/shop/products/product.html";
 const productDetailsEl = document.querySelector(".product-details");
 
 export function showMessage(id, message){
