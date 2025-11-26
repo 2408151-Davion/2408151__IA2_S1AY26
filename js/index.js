@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // sessionStorage.removeItem("user");
 
     const loginButton = document.createElement("a");
-    loginButton.setAttribute("href", "2408151-Davion/2408151__IA2_S1AY26/pages/login.html")
+    loginButton.setAttribute("href", "pages/login.html")
     loginButton.textContent = "Login";
 
     const registerLink = document.createElement("a");
-    registerLink.setAttribute("href", "2408151-Davion/2408151__IA2_S1AY26/pages/login.html")
+    registerLink.setAttribute("href", "pages/login.html")
     registerLink.textContent = "Register";
 
     const logoutButton = document.createElement("a");
