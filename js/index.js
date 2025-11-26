@@ -2,7 +2,7 @@ import access from "./access.js";
 import auth from "./userAuth.js";
 import { index } from "./links.js";
 
-const logoLink = document.getElementById("logo-link");
+const logoLink = document.querySelector(".logo-link");
 
 document.addEventListener("DOMContentLoaded", () => {
     logoLink.setAttribute("href", index);
