@@ -1,7 +1,11 @@
 import access from "./access.js";
 import auth from "./userAuth.js";
+import { index } from "./links.js";
+
+const logoLink = document.getElementById("logo-link");
 
 document.addEventListener("DOMContentLoaded", () => {
+    logoLink.setAttribute("href", index);
     const authButtons = document.getElementById("authButtons");
     const registerBtn = document.getElementById("registerBtn");
     // sessionStorage.setItem("user", "John");
