@@ -5,7 +5,11 @@ import { index } from "./links.js";
 const logoLink = document.querySelectorAll(".logo-link");
 
 document.addEventListener("DOMContentLoaded", () => {
-    logoLink.setAttribute("href", index);
+    if(logoLink){
+        logoLink.forEach(link => {
+            link.setAttribute("href", index);
+        });
+    }
     const authButtons = document.getElementById("authButtons");
     const registerBtn = document.getElementById("registerBtn");
     // sessionStorage.setItem("user", "John");
