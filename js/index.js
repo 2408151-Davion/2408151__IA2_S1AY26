@@ -4,6 +4,15 @@ import { index } from "./links.js";
 
 const logoLink = document.querySelectorAll(".logo-link");
 
+let uriRoot = "";
+const host = location.hostname;
+
+if(host == "2408151-davion.github.io"){
+    uriRoot = "/2408151__IA2_S1AY26";
+} else if(host == "127.0.0.1") {
+    uriRoot = "";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     if(logoLink){
         logoLink.forEach(link => {
@@ -16,14 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginButton = document.createElement("a");
     // loginButton.setAttribute("href", "C:\Users\coder\source\repos\2408151__IA2_S1AY26\pages\login.html")
     loginButton.addEventListener('click', () => {
-        window.location.href = "/pages/login.html#login";
+        window.location.href = `${uriRoot}/pages/login.html#login`;
     });
     loginButton.textContent = "Login";
 
     const registerLink = document.createElement("a");
     // registerLink.setAttribute("href", "pages/login.html")
     registerLink.addEventListener('click', () => {
-        window.location.href = "/pages/login.html#register";
+        window.location.href = `${uriRoot}/pages/login.html#register`;
     });
     registerLink.textContent = "Register";
 
