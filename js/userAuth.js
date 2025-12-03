@@ -38,6 +38,7 @@ function showRegister() {
     loginForm.style.display = 'none';
     tabRegister.setAttribute('aria-selected','true');
     tabLogin.setAttribute('aria-selected','false');
+    location.hash = "register";
 }
 
 function showLogin() {
@@ -47,6 +48,7 @@ function showLogin() {
     registerForm.style.display = 'none';
     tabLogin.setAttribute('aria-selected','true');
     tabRegister.setAttribute('aria-selected','false');
+    location.hash = "login";
 }
     
 export function showError(id, message){
@@ -228,8 +230,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const maxDate = today.toISOString().split("T")[0];
     document.querySelector('input[name="dob"]').setAttribute('max', maxDate);
 
+    if (window.location.hash === "#login") { showLogin(); }
+    if (window.location.hash === "#register") { showRegister(); }
+
+    // login and register tab button on form
     if(tabRegister){tabRegister.addEventListener('click', showRegister);}
-    if(tabLogin){tabLogin.addEventListener('click', showLogin);}
+    if(tabLogin){tabLogin.addEventListener('click', showLogin); }
+    
+    // login and register links
     if(toLoginLink){
         toLoginLink.addEventListener('click', (e)=>{ 
             e.preventDefault(); 

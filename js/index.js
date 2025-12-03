@@ -14,11 +14,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const registerBtn = document.getElementById("registerBtn");
 
     const loginButton = document.createElement("a");
-    loginButton.setAttribute("href", "pages/login.html")
+    // loginButton.setAttribute("href", "C:\Users\coder\source\repos\2408151__IA2_S1AY26\pages\login.html")
+    loginButton.addEventListener('click', () => {
+        window.location.href = "/pages/login.html#login";
+    });
     loginButton.textContent = "Login";
 
     const registerLink = document.createElement("a");
-    registerLink.setAttribute("href", "pages/login.html")
+    // registerLink.setAttribute("href", "pages/login.html")
+    registerLink.addEventListener('click', () => {
+        window.location.href = "/pages/login.html#register";
+    });
     registerLink.textContent = "Register";
 
     const logoutButton = document.createElement("a");
