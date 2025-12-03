@@ -12,8 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     const authButtons = document.getElementById("authButtons");
     const registerBtn = document.getElementById("registerBtn");
-    // sessionStorage.setItem("user", "John");
-    // sessionStorage.removeItem("user");
 
     const loginButton = document.createElement("a");
     loginButton.setAttribute("href", "pages/login.html")

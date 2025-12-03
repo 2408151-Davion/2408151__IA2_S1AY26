@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
             password: "LakeFire"
         }));
 
-        const user = document.getElementById("user").value;
+        const user = document.getElementById("RegistrationData").value;
         const userFound = localStorage.getItem(user);
 
         if(userFound){

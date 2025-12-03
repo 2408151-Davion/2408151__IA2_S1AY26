@@ -98,6 +98,8 @@ label{
 input[type="text"],
 input[type="email"],
 input[type="password"],
+input[type="tel"],
+input[type="date"],
 select{
     width:100%;
     padding:10px 12px;
@@ -109,8 +111,11 @@ select{
 }
 input:focus{box-shadow:0 0 0 4px rgba(79,70,229,0.08); border-color:var(--accent)}
 
-.row {display:flex; gap:10px}
+.row {display:flex; gap:10px;}
 .row .field{flex:1}
+
+.flex-align {display:flex; gap:10px; align-items: center; margin: 0;}
+.gap-0 {gap: 0;}
 
 .hint {font-size:13px;color:var(--muted);margin-bottom:12px}
 .error {font-size:13px;color:var(--danger);margin-top:6px}
@@ -126,6 +131,7 @@ input:focus{box-shadow:0 0 0 4px rgba(79,70,229,0.08); border-color:var(--accent
     background:var(--accent);
     color:white;
     font-size:15px;
+    margin-bottom: 10px;
 }
 
 .secondary{

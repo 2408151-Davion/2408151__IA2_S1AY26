@@ -33,7 +33,7 @@
                 <div id="tab-register" class="tab inactive" role="tab" aria-selected="true" tabindex="0">Register</div>
             </div>
 
-            <!-- Registration form -->
+            <!-- Registration form - Question 1 a-i -->
             <form id="register-form" style="display:none;margin-top:6px" novalidate>
                 <div class="field row">
                     <div class="field">
@@ -49,16 +49,54 @@
                     </div>
                 </div>
 
-                <div class="field">
-                    <label for="userName">Username</label>
-                    <input id="userName" name="userName" type="text" autocomplete="family-name" required />
-                    <div class="error" id="err-userName" aria-live="polite" style="display:none"></div>
+                <div class="field row">
+                    <div class="field">
+                        <label for="userName">Username</label>
+                        <input id="userName" name="userName" type="text" autocomplete="family-name" required />
+                        <div class="error" id="err-userName" aria-live="polite" style="display:none"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="reg-email">Email</label>
+                        <input id="reg-email" name="email" type="email" autocomplete="email" required />
+                        <div class="error" id="err-email" aria-live="polite" style="display:none"></div>
+                    </div>
+                </div>
+
+                <div class="field row">
+                    <div class="field">
+                        <label for="reg-phone">Phone</label>
+                        <input id="reg-phone" name="phone" type="tel" autocomplete="phone" pattern="\d{3}-\d{3}-\d{4}" placeholder="876-123-4567" required />
+                        <div class="error" id="err-phone" aria-live="polite" style="display:none"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="trn">TRN</label>
+                        <input id="trn" name="trn" type="text" pattern="\d{3}-\d{3}-\d{3}" maxlength="11" placeholder="123-456-789" required />
+                        <div class="error" id="err-trn" aria-live="polite" style="display:none"></div>
+                    </div>
                 </div>
 
                 <div class="field">
-                <label for="reg-email">Email</label>
-                <input id="reg-email" name="email" type="email" autocomplete="email" required />
-                <div class="error" id="err-email" aria-live="polite" style="display:none"></div>
+                    <div class="field flex-align">
+                        <label class="row">Gender
+                            <div class="flex-align gap-0">
+                                <input id="male" name="gender" type="radio" value="male" required />
+                                <label for="male"> Male </label>
+                            </div>
+                            <div class="flex-align gap-0">
+                                <input id="female" name="gender" type="radio" value="female" required /> 
+                                <label for="female"> Female </label> 
+                            </div>
+                        </label>
+                    </div>
+                    <div class="error" id="err-gender" aria-live="polite" style="display:none"></div>
+                </div>
+
+                <div class="field">
+                    <label for="reg-dob">Date of birth</label>
+                    <input id="reg-dob" name="dob" type="date" autocomplete="date" required />
+                    <div class="error" id="err-dob" aria-live="polite" style="display:none"></div>
                 </div>
 
                 <div class="field">
@@ -81,17 +119,21 @@
                 <div class="error" id="err-terms" aria-live="polite" style="display:none"></div>
                 </div>
 
+                <!-- Question 1. a-vii.	Register (used to stored registration form data)  -->
                 <button class="btn" type="submit">Create account</button>
+
+                <!-- Question 1. a-viii. Cancel (used to clear data from the registration form) -->
+                <button class="btn" type="reset">Cancel</button>
 
                 <div class="secondary">
                 Already have an account? <a href="#" id="to-login">Sign in</a>
                 </div>
             </form>
 
-            
+            <!-- Question 1. b-i. create a login form where visitors can enter their TRN and password provided at registration. -->
             <form id="login-form" novalidate method="post">
                 <div class="field">
-                    <label for="login-identifier">Email or Username</label>
+                    <label for="login-identifier">TRN</label>
                     <input id="login-identifier" name="identifier" type="text" autocomplete="username" required />
                     <div class="error" id="err-identifier" aria-live="polite" style="display:none"></div>
                 </div>
@@ -111,7 +153,11 @@
                     <a href="#" onclick="event.preventDefault(); alert('Implement password reset flow')">Forgot?</a>
                 </div>
 
-                <button class="btn" type="submit">Sign in</button>
+                <!-- Question 1. b-i. Login button (validate user login information) -->
+                <button class="btn" id="register-btn" type="submit">Sign in</button>
+
+                <!-- Question 1. b-i. Cancel button (used to clear data from the Login form) -->
+                <button class="btn" type="reset">Cancel</button>
 
                 <div class="secondary">
                     New here? <a href="#" id="to-register">Create an account</a>
