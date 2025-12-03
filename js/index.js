@@ -4,13 +4,13 @@ import { index } from "./links.js";
 
 const logoLink = document.querySelectorAll(".logo-link");
 
-let uriRoot = "";
+window.uriRoot = "";
 const host = location.hostname;
 
 if(host == "2408151-davion.github.io"){
-    uriRoot = "/2408151__IA2_S1AY26";
+    window.uriRoot = "/2408151__IA2_S1AY26";
 } else if(host == "127.0.0.1") {
-    uriRoot = "";
+    window.uriRoot = "";
 }
 
 document.addEventListener("DOMContentLoaded", () => {

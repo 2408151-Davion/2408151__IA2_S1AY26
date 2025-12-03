@@ -256,11 +256,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Question 1. a-vii.	Register (used to stored registration form data) 
     if(registerForm){
         registerForm.addEventListener('submit', function(e){
-            const source = e.submitter.id;
-
-            if(source !== "register-btn"){ return; }
-
             e.preventDefault();
+            // const source = e.submitter.id;
+
+            // if(source !== "register-btn"){ return; }
+
             clearErrors(registerForm);
 
             const firstName = document.getElementById('firstName').value.trim();
