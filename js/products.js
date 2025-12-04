@@ -142,13 +142,14 @@ export function addToCart(pid){
 
     showMessage(`atc-message-${pid}`, "Added to cart successfully");
     setTimeout(() => {
+        const cartFooter = document.getElementById("cart-footer");
         const cartEl = document.getElementById("shopping-cart-items");
         //Clear the element before reloading the cart to update it
-        if(cartEl){
-            cartEl.innerHTML = "";
-        }
+        if(cartEl){cartEl.innerHTML = "";}
+        if(cartFooter){cartFooter.style.display = "none";}
+
         loadCart();
-    }, 1000);
+    }, 300);
     
 };
 

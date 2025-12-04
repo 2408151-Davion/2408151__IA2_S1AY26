@@ -30,22 +30,24 @@
             <div class="nav-fill">Checkout
                 <!-- <img class="shopping-cart" src="/assets/shopping-cart.png"> -->
             </div>
+            <!-- Question 4 e. Cancel button (go back to the cart) -->
             <div class="nav-right">
                 <a href="/pages/cart/cart.html">cancel</a>
             </div>
         </div>
     </header>
+    <!-- Question 4 a. Show a summary of the shopping cart with the total cost. -->
     <div class="checkout-container">
         <div class="checkout-right-side">
             <div id="checkout-container" class="confirm-checkout-container">
                 <div class="checkout-details">
-                    <p id="sub-total-price"></p>
-                    <p id="discount"></p>
-                    <p id="discounted-amt"></p>
-                    <p id="tax"></p>
-                    <p id="taxed-amt"></p>
-                    <p id="grand-total"></p>
+                    <p>Subtotal (<span id="total-cart-items"></span>) <span id="sub-total-price"></span></p>
+                    <p>discount applies: <span id="discount"></span></p>
+                    <p>discount amount: <span id="discounted-amt"></span></p>
+                    <p>tax applied(<span id="tax"></span>): <span id="taxed-amt"></span></p>
+                    <p>Grand Total <span id="grand-total"></span></p>
                 </div>
+                <!-- Question 4 d.	Confirm button (confirms the checkout) -->
                 <button id="confirm-checkout-btn" class="checkout-btn">
                     Confirm checkout
                     <img class="shopping-cart" src="/assets/shopping-cart.png">
@@ -205,6 +207,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Question 4 a. Show a summary of the shopping cart with the total cost. -->
             <div id="shopping-cart-container" class="checkout-list-container">
                 <ul id="checkout-cart-items"></ul>
             </div>

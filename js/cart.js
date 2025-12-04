@@ -7,10 +7,13 @@ const cart = document.getElementById("shopping-cart-items");
 const totalItemsEl = document.getElementById("total-cart-items");
 const subTotalPriceEl = document.getElementById("sub-total-price");
 const emptyCartMsg = document.getElementById("empty-cart");
+const cartFooter = document.getElementById("cart-footer");
 const checkoutContainer = document.getElementById("checkout-container");
 const discountEl = document.getElementById("discount");
 const grantTotalEl = document.getElementById("grand-total");
 const discountedAmtEl = document.getElementById("discounted-amt");
+const taxedAmtEl = document.getElementById("taxed-amt");
+const taxEl = document.getElementById("tax");
 const checkoutBtn = document.querySelector(".checkout-btn");
 const cartCount = document.getElementById("total-items");
 const clearAllItemsBtn = document.getElementById("clear-all-items");
@@ -18,6 +21,8 @@ const closeCartBtn = document.querySelector(".closeCart");
 
 // Question 3 a. Create a shopping cart page that lists the items in the cart (name, price, quantity, sub-total, discount, tax, and total, etc).
 export function loadCart(){
+    if(cart){cart.style.display = "block";}
+    if(clearAllItemsBtn){clearAllItemsBtn.style.display = "block";}
     const currentUserID = sessionStorage.getItem("userID");
     const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
     const user = users.find(u => u.id == currentUserID);
@@ -62,23 +67,34 @@ export function loadCart(){
 
     // Question 3 c. Calculate and display the total price of the items in the cart.
     const minDiscountLmt = 6000;
+    const tax = total >= minDiscountLmt ? 0.10 : 0.3;
     const text = totalItems > 1 ? "items" : "item";
     let discount = total >= minDiscountLmt ? 0.05 : 0;
     const discountAmt = total*discount;
-    const grantTotal = total-discountAmt;
+    const taxAmt = discountAmt == 0 ? total*tax : discountAmt*tax;
+    const grantTotal = (total-discountAmt)+taxAmt;
 
     if(totalItemsEl){totalItemsEl.innerHTML = `${totalItems} ${text}`;}
     if(subTotalPriceEl){subTotalPriceEl.innerHTML = `$${total}`;}
     if(discountEl){discountEl.innerHTML = `${discount*100}%`;}
     if(discountedAmtEl){discountedAmtEl.innerHTML = `-$${discountAmt}`;}
+    if (taxEl) {taxEl.innerHTML = `${tax * 100}%`;}
+    if (taxedAmtEl) {taxedAmtEl.innerHTML = `+$${taxAmt}`;}
     if(grantTotalEl){grantTotalEl.innerHTML = `$${grantTotal}`;}
+
+    if(totalItems == 0){
+        if(cart){cart.style.display = "none";}
+        if(clearAllItemsBtn){clearAllItemsBtn.style.display = "none";}
+        if(emptyCartMsg){emptyCartMsg.style.display = "block";}
+        if(cartFooter){cartFooter.style.display = "block";}
+    }
 
     console.log(cartItems.length);
 
     updateCartItemsCount(cartCount);
 }
 // Question 3 d. Clear All button (remove all items from shopping cart)
-function removeAllItemsFromCart(){
+export function removeAllItemsFromCart(){
     const currentUserID = sessionStorage.getItem("userID");
     const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
     const user = users.find(u => u.id == currentUserID);
@@ -95,7 +111,7 @@ function removeAllItemsFromCart(){
 }
 
 // Question 3 b. Allow users to remove items from the cart and update quantities.
-function removeItemFromCart(itemNum){
+export function removeItemFromCart(itemNum){
     const currentUserID = sessionStorage.getItem("userID");
     const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
     const user = users.find(u => u.id == currentUserID);
@@ -113,7 +129,7 @@ function removeItemFromCart(itemNum){
 }
 
 // Question 3 b. Allow users to remove items from the cart and update quantities.
-function removeAllSameItemsFromCart(itemId){
+export function removeAllSameItemsFromCart(itemId){
     const currentUserID = sessionStorage.getItem("userID");
     const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
     const user = users.find(u => u.id == currentUserID);
@@ -130,7 +146,7 @@ function removeAllSameItemsFromCart(itemId){
     }, 300);
 }
 
-function onRemoveClick(e){
+export function onRemoveClick(e){
     if(e.target.classList.contains( "reduceItem")){
         const itemNum = Number(e.target.dataset.id);
         console.log(itemNum);
@@ -146,14 +162,14 @@ function onRemoveClick(e){
     };
 }
 
-function onAddToCartClick(e){
+export function onAddToCartClick(e){
     if(e.target.classList.contains("increaseItem")){
         const id = Number(e.target.dataset.id);
         addToCart(id);
     };
 }
 
-function updateCartItemsCount(elID){
+export function updateCartItemsCount(elID){
     const currentUserID = sessionStorage.getItem("userID");
     const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
     const user = users.find(u => u.id == currentUserID);

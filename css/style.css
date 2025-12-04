@@ -563,6 +563,20 @@ hr {
     position: relative;
 }
 
+#shopping-cart-container {
+    position: relative;
+}
+
+#cart-footer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    position: absolute;
+}
+
 .closeCart {
     margin-top: 0;
     align-self: end;
@@ -674,9 +688,10 @@ hr {
 #clear-all-items {
     float: right;
     margin-right: 10px;
+    /* display: none; */
 }
 
-#sub-total-price, #discount, #discounted-amt, #grand-total {
+#sub-total-price, #discount, #discounted-amt, #grand-total, #taxed-amt {
     float: right;
 }
 
@@ -706,6 +721,8 @@ hr {
 
 .checkout-details {
     width: 80%;
+    display: flex;
+    flex-direction: column;
 }
 
 

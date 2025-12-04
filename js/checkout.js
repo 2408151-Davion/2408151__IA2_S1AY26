@@ -3,6 +3,7 @@ import { removeAllItemsFromCart } from "./cart.js";
 
 const cart = document.getElementById("shopping-cart-items");
 const subTotalPriceEl = document.getElementById("sub-total-price");
+const totalItemsEl = document.getElementById("total-cart-items");
 const emptyCartMsg = document.getElementById("empty-cart");
 const checkoutContainer = document.getElementById("checkout-cart-items");
 const discountEl = document.getElementById("discount");
@@ -20,9 +21,13 @@ const cardDetailsForm = document.getElementById("card-details-form");
 const cardList = document.getElementById("list-of-cards");
 
 export function loadCheckoutList(){
-    const currentUser = sessionStorage.getItem("userID");
-    const items = JSON.parse(localStorage.getItem("cart") || []);
-    const userItems = items.filter(item => item.user === currentUser);
+    const currentUserID = sessionStorage.getItem("userID");
+    const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
+    const user = users.find(u => u.id == currentUserID);
+    const userItems = user.cart;
+
+    // const items = JSON.parse(localStorage.getItem("cart") || []);
+    // const userItems = items.filter(item => item.user === currentUser);
 
     if(userItems === 0){
         cart.innerHTML = "";
@@ -85,26 +90,16 @@ export function loadCheckoutList(){
     const grantTotal = (subtotal-discountAmt)+taxAmt;
     console.log((subtotal-discountAmt)+taxAmt);
 
+    
+    if(totalItemsEl){totalItemsEl.innerHTML = `${totalItems} ${text}`;}
+    if(subTotalPriceEl){subTotalPriceEl.innerHTML = `$${subtotal}`;}
+    if(discountEl){discountEl.innerHTML = `${discount*100}%`;}
+    if(discountedAmtEl){discountedAmtEl.innerHTML = `-$${discountAmt}`;}
+    if(grantTotalEl){grantTotalEl.innerHTML = `$${grantTotal}`;}
 
-
-    if (subTotalPriceEl) {
-        subTotalPriceEl.innerHTML = `Sub-total (${totalItems} ${text}): <span>$${subtotal}</span>`;
-    }
-    if (discountEl) {
-        discountEl.innerHTML = `discount applied: <span>${discount * 100}%</span>`;
-    }
-    if (discountedAmtEl) {
-        discountedAmtEl.innerHTML = `discount: <span>-$${discountAmt}</span>`;
-    }
-    if (taxEl) {
-        taxEl.innerHTML = `tax applied: <span>${tax * 100}%</span>`;
-    }
-    if (taxedAmtEl) {
-        taxedAmtEl.innerHTML = `tax amount: <span>+$${taxAmt}</span>`;
-    }
-    if (grantTotalEl) {
-        grantTotalEl.innerHTML = `Total: <span>$${grantTotal}<span>`;
-    }
+    if (taxEl) {taxEl.innerHTML = `${tax * 100}%`;}
+    if (taxedAmtEl) {taxedAmtEl.innerHTML = `+$${taxAmt}`;}
+    if (grantTotalEl) {grantTotalEl.innerHTML = `$${grantTotal}`;}
 
 }
 
@@ -136,7 +131,8 @@ function confirmCheckout() {
         }
 
     }
-    const selectedCard = selectedInput.value;
+
+    if(selectedInput){const selectedCard = selectedInput.value;}
 
     const cards = JSON.parse(localStorage.getItem("paymentInfo")) || [];
     const userCard = cards.find(card => card.id === Number(selectedCard));
