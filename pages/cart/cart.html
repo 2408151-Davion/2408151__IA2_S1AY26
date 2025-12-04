@@ -9,26 +9,33 @@
         <title>Coffee Den.</title>
         <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <!-- For GitHub-->
         <link rel="stylesheet" href="2408151-Davion/2408151__IA2_S1AY26/css/style.css">
         <script type="module" src="2408151-Davion/2408151__IA2_S1AY26/js/index.js"></script>
         <script type="module" src="2408151-Davion/2408151__IA2_S1AY26/js/cart.js"></script>
         <script type="module" src="2408151-Davion/2408151__IA2_S1AY26/js/products.js"></script>
+
+        <!-- For local -->
+        <link rel="stylesheet" href="/css/style.css">
+        <script type="module" src="/js/index.js"></script>
+        <script type="module" src="/js/cart.js"></script>
+        <script type="module" src="/js/products.js"></script>
     </head>
     <body>
         <header>
             <div class="logo">
                 <a class="logo-link" href="">
-                    <img src="2408151-Davion/2408151__IA2_S1AY26/assets/logo_white.png" alt="Logo.">
+                    <img class="logo-img" src="" alt="Logo.">
                 </a>
             </div>
             <nav>
                 <ul class="nav-list">
-                    <li class="nav-item"><a href="2408151-Davion/2408151__IA2_S1AY26/pages/shop/shop.html">Shop</a></li>
-                    <li class="nav-item"><a href="2408151-Davion/2408151__IA2_S1AY26/pages/about.html">About Us</a></li>
+                    <li class="nav-item"><a href="./shop.html">Shop</a></li>
+                    <li class="nav-item"><a href="../about.html">About Us</a></li>
                     <li class="nav-item" id="authButtons"></li>
                     <li class="nav-item" id="registerBtn"></li>
                     <li class="nav-item" id="cartTab">
-                        <a href="2408151-Davion/2408151__IA2_S1AY26/pages/cart/cart.html">
+                        <a href="../cart/cart.html">
                             <i class="fa-solid fa-cart-shopping fa-3x cart-white">
                                 <span id="total-items"></span>
                             </i>
@@ -40,19 +47,29 @@
 
         <div id="cart-container">
             <div id="shopping-cart-container" class="shopping-cart-list-container">
+                <ul id="shopping-cart-items" ></ul>
+                <!-- Question 3 d. Clear All button (remove all items from shopping cart)  -->
+                <button class="btn" id="clear-all-items">Clear All Items</button>
                 <div id="cart-footer">
                     <p id="empty-cart">Your cart is empty.</p>
                 </div>
-                <ul id="shopping-cart-items" ></ul>
             </div>
+            <div class="cart-checkout-left">
+            <!-- Question 3 f. Close button (close the shopping cart view) -->
+            <button class="closeCart btn">
+                Close cart
+                <img src="" alt="CloseCart" class="close-btn-icon" />
+            </button>
             <div id="checkout-container" class="cart-checkout-container">
                 <div class="checkout-details">
-                    <p id="sub-total-price"></p>
-                    <p id="discount"></p>
-                    <p id="discounted-amt"></p>
-                    <p id="grand-total"></p>
+                    <p>Subtotal (<span id="total-cart-items"></span>) <span id="sub-total-price"></span></p>
+                    <p>discount applies: <span id="discount"></span></p>
+                    <p>discount amount: <span id="discounted-amt"></span></p>
+                    <p>Total: <span id="grand-total"></span></p>
                 </div>
-                <a href="2408151-Davion/2408151__IA2_S1AY26/pages/cart/checkout.html" class="checkout-btn">Proceed to checkout</a>
+                <!-- Question 3 e. Check Out button (redirects to Checkout Page) -->
+                <a href="" class="checkout-btn">Proceed to checkout</a>
+            </div>
             </div>
         </div>
 
@@ -67,7 +84,7 @@
         <footer>
             <div class="footer-logo">
                 <a class="logo-link" href="">
-                    <img src="2408151-Davion/2408151__IA2_S1AY26/assets/logo_white.png" alt="">
+                    <img class="logo-img" src="" alt="">
                 </a>
             </div>
             <div class="footer-content">

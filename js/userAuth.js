@@ -228,7 +228,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const today = new Date();
     today.setFullYear(today.getFullYear() - 18);
     const maxDate = today.toISOString().split("T")[0];
-    document.querySelector('input[name="dob"]').setAttribute('max', maxDate);
+    const inputDOB = document.querySelector('input[name="dob"]');
+
+    if(inputDOB){
+        inputDOB.setAttribute('max', maxDate);
+    }
 
     if (window.location.hash === "#login") { showLogin(); }
     if (window.location.hash === "#register") { showRegister(); }

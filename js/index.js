@@ -1,8 +1,10 @@
 import access from "./access.js";
 import auth from "./userAuth.js";
-import { index } from "./links.js";
+import { index, logo, closeXIcon } from "./links.js";
 
 const logoLink = document.querySelectorAll(".logo-link");
+const logoImg = document.querySelectorAll(".logo-img");
+const closeXEl = document.querySelectorAll(".close-btn-icon");
 
 window.uriRoot = "";
 const host = location.hostname;
@@ -19,6 +21,19 @@ document.addEventListener("DOMContentLoaded", () => {
             link.setAttribute("href", index);
         });
     }
+
+    if(logoImg){
+        logoImg.forEach(img => {
+            img.src = logo;
+        });
+    }
+
+    if(closeXEl){
+        closeXEl.forEach(img => {
+            img.src = closeXIcon;
+        });
+    }
+
     const authButtons = document.getElementById("authButtons");
     const registerBtn = document.getElementById("registerBtn");
 

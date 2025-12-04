@@ -30,6 +30,22 @@ a {
     text-decoration: none;
 }
 
+.btn {
+    min-width: max-content;
+    font-size: 1rem;
+    color: var(--card);
+    width: 150px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--accent);
+    margin: 10px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .cart-white {
     color: var(--card);
     position: relative;
@@ -526,12 +542,30 @@ hr {
     font-size:15px;
 }
 
+.addToCart {
+    cursor: pointer;
+}
+
+.close-btn-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle; /* aligns with text */
+    margin: 0px 5px;
+    color: var(--card);
+}
+
 #cart-container {
     min-height: 200px;
     display: flex;
     gap: 15px;
     justify-content: center;
     margin: 50px auto;
+    position: relative;
+}
+
+.closeCart {
+    margin-top: 0;
+    align-self: end;
 }
 
 #shopping-cart-container, #checkout-container {
@@ -548,10 +582,23 @@ hr {
 }
 
 .cart-checkout-container {
-    width: 30%;
+    width: 100%;
     height: max-content;
     min-height: 200px;
     background-color: var(--card);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 14px;
+}
+
+.cart-checkout-left {
+    width: 30%;
+    height: max-content;
+    min-height: 200px;
+    border-radius: var(--radius);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -624,7 +671,12 @@ hr {
     font-style: italic;
 }
 
-.checkout-details>p>span {
+#clear-all-items {
+    float: right;
+    margin-right: 10px;
+}
+
+#sub-total-price, #discount, #discounted-amt, #grand-total {
     float: right;
 }
 

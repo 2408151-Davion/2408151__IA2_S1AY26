@@ -2,10 +2,17 @@ import products from "./productsList.js";
 import access from "./access.js";
 import { loadCart } from "./cart.js";
 
+let uriRoot = "";
+const host = location.hostname;
+
+if (host === "2408151-davion.github.io") {
+    uriRoot = "/2408151__IA2_S1AY26";
+}
+
 
 const currentPath = window.location.pathname;
 const container = document.getElementById("product-container");
-const productPage = "/2408151__IA2_S1AY26/pages/shop/products/product.html";
+const productPage = `${uriRoot}/pages/shop/products/product.html`;
 const productDetailsEl = document.querySelector(".product-details");
 
 export function showMessage(id, message){
@@ -16,10 +23,16 @@ export function showMessage(id, message){
     }
     el.textContent = message;
     el.style.display = "block";
+
+    setTimeout(() => {
+        el.style.display = "none";
+    }, 2000);
 }
 
+// Question 2 c. Display the product list dynamically on the website. & d. Each product should have an “Add to Cart” button.
 export function listRandomProducts(){
-    const shuffled = [...products].sort(() => Math.random() - 0.5);
+    const allProducts = JSON.parse(localStorage.getItem("AllProducts")) || [];
+    const shuffled = [...allProducts].sort(() => Math.random() - 0.5);
     const someProducts = shuffled.slice(0, 4);
 
     someProducts.forEach((product) => {
@@ -36,7 +49,7 @@ export function listRandomProducts(){
                     <p class="price">$${product.price}</p>
                 </div>
                 <button class="addToCart" data-id="${product.id}">Add to Cart</button>
-                <p id="atc-message"></p>
+                <p id="atc-message-${product.id}"></p>
             </div>
         `;
 
@@ -44,8 +57,10 @@ export function listRandomProducts(){
     });
 };
 
+// Question 2 c. Display the product list dynamically on the website. & d.	Each product should have an “Add to Cart” button.
 function listAllProducts(){
-    products.forEach((product) => {
+    const allProducts = JSON.parse(localStorage.getItem("AllProducts")) || [];
+    allProducts.forEach((product) => {
         const card = document.createElement("div");
         card.classList.add("product-card");
 
@@ -57,7 +72,7 @@ function listAllProducts(){
                 <h2>${product.name}</h2>
                 <p class="price">$${product.price}</p>
                 <button class="addToCart" data-id="${product.id}">Add to Cart</button>
-                <p id="atc-message"></p>
+                <p id="atc-message-${product.id}"></p>
             </div>
         `;
 
@@ -66,6 +81,7 @@ function listAllProducts(){
 };
 
 function productDetails(){
+    const allProducts = JSON.parse(localStorage.getItem("AllProducts")) || [];
     const productImg = document.querySelector(".product-img");
     const productName = document.querySelector(".product-name");
     const productPrice = document.querySelector(".product-price");
@@ -74,7 +90,7 @@ function productDetails(){
     const params = new URLSearchParams(window.location.search);
     const productId = parseInt(params.get("id"));
 
-    const product = products.find(product => product.id === productId);
+    const product = allProducts.find(product => product.id === productId);
 
     if(!product){
         productName.innerText = "No product found";
@@ -94,36 +110,75 @@ function productDetails(){
     productPrice.appendChild(addToCartBtnDiv);
 };
 
-export function addToCart(e){
-    const productId = Number(e.target.dataset.id);
-    const currentUserID = sessionStorage.getItem("userID");
-    const itemNum = Math.floor(Math.random() * 9000) + 1000;
-    if(access.isLoggedIn()){
-        const product = products.find(product => product.id === productId);
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        cart.push({
-            itemNum: itemNum,
-            user: currentUserID,
-            id: product.id,
-            image: product.image,
-            name: product.name,
-            description: product.description,
-            price: product.price
-        });
-        localStorage.setItem("cart", JSON.stringify(cart));
-        setTimeout(() => {
-            const cart = document.getElementById("shopping-cart-items");
-            //Clear the element before reloading the cart to update it
-            if(cart){
-                cart.innerHTML = "";
-            }
-            loadCart();
-        }, 1000);
+// Question 2 e. Add to Cart
+export function addToCart(pid){
+    const allProducts = JSON.parse(localStorage.getItem("AllProducts")) || [];
+    const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
+    
+    const currentUserID = Number(sessionStorage.getItem("userID"));
+    // const productId = pid;
+
+    if(!access.isLoggedIn()){
+        alert("You must be logged in to add items to your cart.");
+        return;
     }
+
+    const product = allProducts.find(product => product.id === pid);
+
+    const itemNum = Math.floor(Math.random() * 9000) + 1000;
+
+    const user = users.find(u => u.id == currentUserID);
+    const cart = user.cart;
+    cart.push({
+        itemNum: itemNum,
+        user: currentUserID,
+        id: product.id,
+        image: product.image,
+        name: product.name,
+        description: product.description,
+        price: product.price
+    });
+    localStorage.setItem("RegistrationData", JSON.stringify(users));
+
+    showMessage(`atc-message-${pid}`, "Added to cart successfully");
+    setTimeout(() => {
+        const cartEl = document.getElementById("shopping-cart-items");
+        //Clear the element before reloading the cart to update it
+        if(cartEl){
+            cartEl.innerHTML = "";
+        }
+        loadCart();
+    }, 1000);
+    
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+// Question 2 a. Product List (Using Arrays & Objects) & b.	An updated product list must be kept on localStorage, as AllProducts. 
+function addProductsToStorage(){
+    if (localStorage.getItem("AllProducts") === "true") {
+        return;
+    }
+    let productStorage = JSON.parse(localStorage.getItem("AllProducts")) || [];
 
+    products.forEach((product) => {
+        const pid = productStorage.find(p => p.id == product.id);
+        if(!pid){
+            productStorage.push({
+                id: product.id,
+                image: uriRoot + product.image,
+                name: product.name,
+                price: product.price,
+                description: product.description
+            });
+        }
+    });
+
+    localStorage.setItem("AllProducts", JSON.stringify(productStorage));
+    
+}
+
+document.addEventListener("DOMContentLoaded", () => {    
+
+    addProductsToStorage();
     if(currentPath.includes("shop") && !currentPath.includes("products")){
         listAllProducts();
         
@@ -135,12 +190,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     
+    // Question 2 e. Add to Cart
     if(container){
         container.addEventListener("click", (e) => {
             if(e.target.classList.contains("addToCart")){
-                addToCart(e);
+                const productId = Number(e.target.dataset.id);
+                console.log(productId);
+                addToCart(productId);
                 
-                showMessage("atc-message", "Added to cart successfully");
             };
         });
     }

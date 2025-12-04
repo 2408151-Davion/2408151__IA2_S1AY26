@@ -7,10 +7,17 @@
         <meta name="author" content="Davion Spaulding-Bowen">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Coffee Den.</title>
-        <link rel="icon" type="image/x-icon" href="../../../assets/favicon.ico">
-        <link rel="stylesheet" href="../../../css/style.css">
-        <script type="module" src="../../../js/index.js"></script>
-        <script type="module" src="../../../js/products.js"></script>
+        <!-- For GitHub-->
+        <link rel="stylesheet" href="2408151-Davion/2408151__IA2_S1AY26/css/style.css">
+        <script type="module" src="2408151-Davion/2408151__IA2_S1AY26/js/index.js"></script>
+        <script type="module" src="2408151-Davion/2408151__IA2_S1AY26/js/cart.js"></script>
+        <script type="module" src="2408151-Davion/2408151__IA2_S1AY26/js/products.js"></script>
+
+        <!-- For local -->
+        <link rel="stylesheet" href="/css/style.css">
+        <script type="module" src="/js/index.js"></script>
+        <script type="module" src="/js/cart.js"></script>
+        <script type="module" src="/js/products.js"></script>
     </head>
     <body>
         <header>
@@ -23,9 +30,15 @@
                 <ul class="nav-list">
                     <li class="nav-item"><a href="../shop.html">Shop</a></li>
                     <li class="nav-item"><a href="../../about.html">About Us</a></li>
-                    <li class="nav-item" id="cartTab"> <a href="../../cart/cart.html"shopping-cart">&#128722;</span></a></li>
                     <li class="nav-item" id="authButtons"></li>
                     <li class="nav-item" id="registerBtn"></li>
+                    <li class="nav-item" id="cartTab">
+                        <a href="../cart/cart.html">
+                            <i class="fa-solid fa-cart-shopping fa-3x cart-white">
+                                <span id="total-items"></span>
+                            </i>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </header>
