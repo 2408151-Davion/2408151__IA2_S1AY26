@@ -1,9 +1,11 @@
-import {listRandomProducts, addToCart, showMessage} from "./products.js";
+import {getProduct, listRandomProducts} from "./products.js";
 import { index, checkOutBtnLink, checkoutBtnEl } from "./links.js";
-// import { addToCart } from "./products.js";
+import { showMessage } from "./utils.js";
+import access from "./access.js";
+import { User } from "./User.js";
 
 
-const cart = document.getElementById("shopping-cart-items");
+const shoppingCart = document.getElementById("shopping-cart-items");
 const totalItemsEl = document.getElementById("total-cart-items");
 const subTotalPriceEl = document.getElementById("sub-total-price");
 const emptyCartMsg = document.getElementById("empty-cart");
@@ -19,15 +21,45 @@ const cartCount = document.getElementById("total-items");
 const clearAllItemsBtn = document.getElementById("clear-all-items");
 const closeCartBtn = document.querySelector(".closeCart");
 
+// Question 2 e. Add to Cart
+export function addToCart(pid){
+    if(!access.isLoggedIn()){
+        alert("You must be logged in to add items to your cart.");
+        return;
+    }
+
+    const product = getProduct(pid);
+
+    const itemNum = Math.floor(Math.random() * 9000) + 1000;
+    const cartItems = {
+        itemNum: itemNum,
+        id: product.id,
+        image: product.image,
+        name: product.name,
+        description: product.description,
+        price: product.price
+    };
+
+    User.saveCart(cartItems);
+
+    showMessage(`atc-message-${pid}`, "Added to cart successfully");
+    setTimeout(() => {
+        const cartFooter = document.getElementById("cart-footer");
+        const cartEl = document.getElementById("shopping-cart-items");
+        //Clear the element before reloading the cart to update it
+        if(cartEl){cartEl.innerHTML = "";}
+        if(cartFooter){cartFooter.style.display = "none";}
+
+        loadCart();
+    }, 300);
+    
+};
+
 // Question 3 a. Create a shopping cart page that lists the items in the cart (name, price, quantity, sub-total, discount, tax, and total, etc).
 export function loadCart(){
-    if(cart){cart.style.display = "block";}
+    if(shoppingCart){shoppingCart.style.display = "block";}
     if(clearAllItemsBtn){clearAllItemsBtn.style.display = "block";}
-    const currentUserID = sessionStorage.getItem("userID");
-    const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
-    const user = users.find(u => u.id == currentUserID);
-    const cartItems = user.cart;
-
+    const cartItems = User.getUserCart();
     const groupItems = {};
 
     cartItems.forEach((item) => {
@@ -40,10 +72,10 @@ export function loadCart(){
 
     let total = 0;
     const totalItems = cartItems.length;
-    if(cart){
+    if(shoppingCart){
         Object.values(groupItems).forEach((item) => {
             total += Number(item.price * item.count);
-            cart.innerHTML += `
+            shoppingCart.innerHTML += `
                 <li class="cartItem" data-id="${item.id}">
                     <img src="${item.image}" class="cart-img" />
                     <div class="item-desc"> 
@@ -83,7 +115,7 @@ export function loadCart(){
     if(grantTotalEl){grantTotalEl.innerHTML = `$${grantTotal}`;}
 
     if(totalItems == 0){
-        if(cart){cart.style.display = "none";}
+        if(shoppingCart){shoppingCart.style.display = "none";}
         if(clearAllItemsBtn){clearAllItemsBtn.style.display = "none";}
         if(emptyCartMsg){emptyCartMsg.style.display = "block";}
         if(cartFooter){cartFooter.style.display = "block";}
@@ -170,10 +202,11 @@ export function onAddToCartClick(e){
 }
 
 export function updateCartItemsCount(elID){
-    const currentUserID = sessionStorage.getItem("userID");
-    const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
-    const user = users.find(u => u.id == currentUserID);
-    const cartItems = user.cart;
+    // const currentUserID = sessionStorage.getItem("userID");
+    // const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
+    // const user = users.find(u => u.id == currentUserID);
+    // const cartItems = user.cart;
+    const cartItems = User.getUserCart();
     const itemCount = cartItems.length;
     console.log(itemCount);
     if(elID){elID.textContent = itemCount;};
@@ -186,8 +219,8 @@ export function updateCartItemsCount(elID){
 document.addEventListener("DOMContentLoaded", () => {
     loadCart();
 
-    if(cart){cart.addEventListener("click", (e) => onRemoveClick(e));}
-    if(cart){cart.addEventListener("click", (e) => onAddToCartClick(e));}
+    if(shoppingCart){shoppingCart.addEventListener("click", (e) => onRemoveClick(e));}
+    if(shoppingCart){shoppingCart.addEventListener("click", (e) => onAddToCartClick(e));}
     if(clearAllItemsBtn){clearAllItemsBtn.addEventListener("click", removeAllItemsFromCart)}
 
     if(closeCartBtn){

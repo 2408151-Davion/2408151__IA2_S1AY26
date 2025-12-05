@@ -10,7 +10,7 @@
         <!-- <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"> -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <link rel="stylesheet" href="/css/style.css">
-        <!-- <script type="module" src="/js/index.js"></script> -->
+        <script type="module" src="/js/index.js"></script>
         <script type="module" src="/js/invoice.js"></script>
     </head>
     <body>
@@ -33,24 +33,25 @@
         </header>
         <div class="invoice-container">
 
-            <div class="header">
+            <div class="invoice-header">
+                <div>
+                    <h3>Shipped To:</h3>
+                    <p id="customerName"></p>
+                    <p id="customerEmail"></p>
+                    <p id="customerStreet"></p>
+                    <p id="customerCityNParish"></p>
+                    <p id="customerPhone"></p>
+                </div>
                 <div>
                     <p>Invoice #: <span id="invoiceNumber"></span></p>
                     <p>Date: <span id="invoiceDate"></span></p>
-                </div>
-
-                <div>
-                    <h3>Your Store Name</h3>
-                    <p>123 Main Street</p>
-                    <p>Your City, Country</p>
-                    <p>Phone: (555) 123-4567</p>
+                    <p>TRN: <span id="customerTRN"></span></p>
                 </div>
             </div>
 
             <div class="info">
-                <h3>Bill To:</h3>
-                <p id="customerName"></p>
-                <p id="customerEmail"></p>
+                <h3>Payment method:</h3>
+                <p>Visa ending in <span id="paymentMethod"></span></p>
             </div>
 
             <table id="invoiceTable">

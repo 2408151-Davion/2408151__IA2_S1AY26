@@ -1,22 +1,31 @@
+import { User } from "./User.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-    const ordersData = JSON.parse(localStorage.getItem("Orders")) || [];
-    
-    if (ordersData.length === 0) return; 
-
-    const latestOrder = ordersData[ordersData.length - 1];
-
+export function displayInvoice(invoiceNum){
+    const invoice = User.getUserInvoice(invoiceNum);
     
     const invoiceNumberEl = document.getElementById("invoiceNumber");
     const invoiceDateEl = document.getElementById("invoiceDate");
-    invoiceNumberEl.textContent = latestOrder.orderId;
-    invoiceDateEl.textContent = latestOrder.orderDate;
+    const customerTRNEl = document.getElementById("customerTRN");
+    invoiceNumberEl.textContent = invoice.invoiceNum;
+    invoiceDateEl.textContent = invoice.orderDate;
+    customerTRNEl.textContent = invoice.user.trn || "N/A";
 
     
     const customerNameEl = document.getElementById("customerName");
     const customerEmailEl = document.getElementById("customerEmail");
-    customerNameEl.textContent = latestOrder.cardInfo.cardHolder;
-    customerEmailEl.textContent = latestOrder.cardInfo.email || "N/A";
+    customerNameEl.textContent = invoice.user.name;
+    customerEmailEl.textContent = invoice.user.email || "N/A";
+
+    const street = document.getElementById("customerStreet");
+    const cityNParish = document.getElementById("customerCityNParish");
+    const phone = document.getElementById("customerPhone");
+
+    street.textContent = invoice.shippingAddress.street;
+    cityNParish.textContent = `${invoice.shippingAddress.city}, ${invoice.shippingAddress.parish}`;
+    phone.textContent = invoice.shippingAddress.phone;
+    
+    const paymentMethod = document.getElementById("paymentMethod");
+    paymentMethod.textContent = invoice.cardInfo.cardNumber;
 
     
     const tbody = document.querySelector("#invoiceTable tbody");
@@ -24,14 +33,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let subtotal = 0;
 
-    latestOrder.orders.forEach(item => {
+    invoice.orders.forEach(item => {
         const total = item.price * item.quantity || item.price;
         subtotal += total;
-
+        
         const row = document.createElement("tr");
 
         row.innerHTML = `
-            <td>${item.name}</td>
+            <td>${item.name} </td>
             <td>${item.quantity || 1}</td>
             <td>$${item.price.toFixed(2)}</td>
             <td>$${total.toFixed(2)}</td>
@@ -40,8 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     
-    const tax = latestOrder.taxAmt || subtotal * 0.15; 
-    const grandTotal = latestOrder.grantTotal || subtotal + tax;
+    const tax = invoice.taxAmt || subtotal * 0.15; 
+    const grandTotal = invoice.grantTotal || subtotal + tax;
 
     
     document.getElementById("subtotalAmount").textContent = `$${subtotal.toFixed(2)}`;
@@ -58,4 +67,17 @@ document.addEventListener("DOMContentLoaded", () => {
         link.download = `Invoice_${latestOrder.orderId}.html`;
         link.click();
     });
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const invoiceNum = urlParams.get("invoice");
+
+    if (invoiceNum) {
+        displayInvoice(invoiceNum);
+    }
+
+
+
 });

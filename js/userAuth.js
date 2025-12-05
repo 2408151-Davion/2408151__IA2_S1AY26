@@ -1,27 +1,6 @@
+import { showError, clearErrors, clearInputErrors } from "./utils.js";
+import {User} from "./User.js";
 
-
-// Question 1 a-vi
-class User {
-    
-    constructor(firstName, lastName, userName, email, phone, trn, gender, dob, password, terms) {
-        this.id = Date.now();
-        this.firstName = firstName; 
-        this.lastName = lastName; 
-        this.userName = userName; 
-        this.email = email; 
-        this.phone = phone;
-        this.trn = trn; 
-        this.gender = gender;
-        this.dob = dob;
-        this.password = password; 
-        this.terms = terms;
-        this.dateOfRegistration = new Date().toISOString;
-        this.cart = [];
-        this.invoices = [];
-    }
-
-    greet(){ return `Welcome, ${this.firstName}`};
-};
 
 const tabRegister = document.getElementById('tab-register');
 const tabLogin = document.getElementById('tab-login');
@@ -49,27 +28,6 @@ function showLogin() {
     tabLogin.setAttribute('aria-selected','true');
     tabRegister.setAttribute('aria-selected','false');
     location.hash = "login";
-}
-    
-export function showError(id, message){
-    const el = document.getElementById(id);
-    if(!el) return;
-    el.textContent = message;
-    el.style.display = 'block';
-}
-export function clearErrors(form){
-    form.querySelectorAll('.error').forEach(e=>{
-        e.textContent = '';
-        e.style.display = 'none';
-    });
-}
-
-export function clearInputErrors(id){
-    const el = document.getElementById(id); 
-    if(el){
-        el.textContent = '';
-        el.style.display = 'none';
-    };
 }
 
 function endUserSession(){
@@ -212,8 +170,9 @@ function login(identifier, password){
         // console.log(userValues);
 
     if(userValues){
-        sessionStorage.setItem("user", userValues.userName);
+        sessionStorage.setItem("user", `${userValues.firstName} ${userValues.lastName}`);
         sessionStorage.setItem("userID", userValues.id);
+        sessionStorage.setItem("userTRN", userValues.trn);
         setTimeout(() => {
             window.location.replace("http://127.0.0.1:5500/index.html");
         }, 50);
@@ -222,17 +181,20 @@ function login(identifier, password){
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    // Question 1 a-iv.	visitor must be over 18 years old to register. 
+// Question 1 a-iv.	visitor must be over 18 years old to register. 
+function setAgeLimit(age){
     const today = new Date();
-    today.setFullYear(today.getFullYear() - 18);
+    today.setFullYear(today.getFullYear() - age);
     const maxDate = today.toISOString().split("T")[0];
     const inputDOB = document.querySelector('input[name="dob"]');
 
     if(inputDOB){
         inputDOB.setAttribute('max', maxDate);
     }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    setAgeLimit(18);
 
     if (window.location.hash === "#login") { showLogin(); }
     if (window.location.hash === "#register") { showRegister(); }
@@ -303,13 +265,15 @@ document.addEventListener("DOMContentLoaded", () => {
             const valid = isloginUserValid(identifier, password);
 
             if(valid){login(identifier, password);};
+        });
+    }
 
-            [tabRegister, tabLogin].forEach(tab=>{
-                tab.addEventListener('keydown', (e)=>{
-                    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); tab.click(); }
-                    if(e.key === 'ArrowRight'){ tabLogin.focus(); showLogin(); }
-                    if(e.key === 'ArrowLeft'){ tabRegister.focus(); showRegister(); }
-                });
+    if(tabRegister || tabLogin){
+        [tabRegister, tabLogin].forEach(tab=>{
+            tab.addEventListener('keydown', (e)=>{
+                if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); tab.click(); }
+                if(e.key === 'ArrowRight'){ tabLogin.focus(); showRegister(); }
+                if(e.key === 'ArrowLeft'){ tabRegister.focus(); showLogin(); }
             });
         });
     }

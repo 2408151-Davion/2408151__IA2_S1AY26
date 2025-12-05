@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="/css/style.css">
     <script type="module" src="/js/index.js"></script>
     <script type="module" src="/js/checkout.js"></script>
-    <!-- <script type="module" src="/js/cart.js"></script>
-    <script type="module" src="/js/products.js"></script> -->
 </head>
 
 <body>
@@ -27,9 +25,7 @@
                     </a>
                 </div>
             </div>
-            <div class="nav-fill">Checkout
-                <!-- <img class="shopping-cart" src="/assets/shopping-cart.png"> -->
-            </div>
+            <div class="nav-fill">Checkout</div>
             <!-- Question 4 e. Cancel button (go back to the cart) -->
             <div class="nav-right">
                 <a href="/pages/cart/cart.html">cancel</a>
@@ -55,158 +51,269 @@
             </div>
         </div>
         <div id="" class="checkout-left-side">
+            <!-- Payment section -->
             <div class="payment-method">
                 <div class="add-payment-method">
                     <div class="horizontal-line">
                         <hr>
                     </div>
-                    <a href="#" data-action="a-add-card-popover-open" class="add-payment-method-btn">
-                        Add debit or credit card
-                        <span>></span>
-                    </a>
-                    <div class="cards-list-container">
-                        <div class="card-list-heading">
-                            <div class="a-span6"></div>
-                            <div class="cardholder-name-heading a-span3">
-                                <span class="secondary-text-color"> 
-                                    Name on card
-                                </span>
+                    <div class="payment-header">
+                        <a href="#" data-action="a-add-card-popover-open" class="add-payment-method-btn">
+                            Add debit or credit card
+                            <span>></span>
+                        </a>
+                        <div class="cards-list-container">
+                            <div class="card-list-heading">
+                                <div class="a-span6"></div>
+                                <div class="cardholder-name-heading a-span3">
+                                    <span class="secondary-text-color"> 
+                                        Name on card
+                                    </span>
+                                </div>
+                                <div class="a-text-right a-span3 expiresOn">
+                                    <span class="secondary-text-color">Expires on</span>
+                                </div>
                             </div>
-                            <div class="a-text-right a-span3 expiresOn">
-                                <span class="secondary-text-color">Expires on</span>
+                            <ul class="cards-list" id="list-of-cards">
+
+                            </ul>
+                                        
+                            <div id="no-cards-info" class="muted-text text-center" style="display: none;">
+                                <p>Cards added will be shown here</p>
                             </div>
                         </div>
-                        <ul class="cards-list" id="list-of-cards">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Address section -->
+            <div class="address-container">
+                <div class="address-list-container">
+                    <div class="address-list-header">
+                        <div class="add-new-address">
+                            <a href="#" data-action="a-add-address-popover-open" class="add-address-btn">
+                                Add new address
+                                <span>></span>
+                            </a>
+                        </div>
+                        <div class="a-span6"> 
+                            <h2 class="delivering-to-user-text text-center">
+                                Delivering to 
+                                <span id="user-name" class="secondary-text-color"></span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="horizontal-line"> <hr> </div>
+                    <div class="address-list">
+                        <ul class="address-list" id="list-of-addresses">
 
                         </ul>
                     </div>
                 </div>
-                <div class="popover-container">
-                    <div id="checkoutErrorMessage" class="error-box error"  style="display: none;">
+            </div>
+            
+            <!-- POPOVER -->
+            <div class="popover-container">
+                <div id="checkoutErrorMessage" class="error-box error"  style="display: none;">
 
+                </div>
+                <div class="loader">
+                    <!-- <img src="/assets/loading-4x._CB485930688_.gif"> -->
+                    <img class="loader-img" src="/assets/loader.gif">
+                </div>
+
+                <!-- ADD CARD SECTION IN POPOVER -->
+                <div class="inner-popover-card inner-popover" style="display: none;">
+                    <div class="popover-header">
+                        <h4 class="a-popover-header-content">Add a debit or credit card</h4>
+                        <button data-action="a-popover-close" class="a-popover-close-btn">X</button>
                     </div>
-                    <div class="loader">
-                        <img src="/assets/loading-4x._CB485930688_.gif">
-                    </div>
-                    <div class="inner-popover" style="display: none;">
-                        <div class="popover-header">
-                            <h4 class="a-popover-header-content">Add a debit or credit card</h4>
-                            <button data-action="a-popover-close" class="a-popover-close-btn">X</button>
-                        </div>
-                        <form id="card-details-form" class="add-card-form" action="" novalidate>
-                            <div class="popover-content-section a-row a-spacing-base">
-                                <div id="card-details-form-wrapper" class="a-span7">
-                                    <!-- <form id="card-details-form" class="add-card-form" action="" novalidate> -->
-                                    <div id="add-card-number" class="a-row a-sm-mb">
-                                        <div class="a-span4 a-text-right">
-                                            <label id="add-card-number-label" for="card-number"
-                                                class="a-form-label">Card Number</label>
-                                        </div>
-                                        <div class="a-span8">
-                                            <input id="card-number" name="addCardNumber" type="tel"
-                                                class="a-input-text">
-                                        </div>
+                    <form id="card-details-form" class="add-card-form" action="" novalidate>
+                        <div class="popover-content-section a-row a-spacing-base">
+                            <div id="card-details-form-wrapper" class="a-span7">
+                                <!-- <form id="card-details-form" class="add-card-form" action="" novalidate> -->
+                                <div id="add-card-number" class="a-row a-sm-mb">
+                                    <div class="a-span4 a-text-right">
+                                        <label id="add-card-number-label" for="card-number"
+                                            class="a-form-label">Card Number</label>
                                     </div>
-                                    <div id="add-cardholder-name" class="a-row a-sm-mb">
-                                        <div class="a-span4 a-text-right">
-                                            <label id="add-cardholder-label" for="cardholder" class="a-form-label">Name
-                                                on card</label>
-                                        </div>
-                                        <div class="a-span8">
-                                            <input id="cardholder" name="addCardholderName" type="text"
-                                                class="a-input-text">
-                                        </div>
+                                    <div class="a-span8">
+                                        <input id="card-number" name="addCardNumber" type="tel"
+                                            class="a-input-text">
                                     </div>
-                                    <div id="add-card-expiry-date" class="a-row a-sm-mb">
-                                        <div class="a-span4 a-text-right">
-                                            <label id="add-card-expiry-label" for="add-card-expiration-date"
-                                                class="a-form-label">Expiration date</label>
-                                        </div>
-                                        <div class="a-span8 a-row">
-                                            <div class="a-row">
-                                                <div class=" d-flex gp-4">
-                                                    <span class="selection-wrapper"
-                                                        id="card-expiration-date-selection-wrapper">
-                                                        <select id="add-card-expiration-date" class="select-dropdown"
-                                                            name="addCardExpiryDate">
-                                                            <option value="01" selected>01</option>
-                                                            <option value="02">02</option>
-                                                            <option value="03">03</option>
-                                                            <option value="04">04</option>
-                                                            <option value="05">05</option>
-                                                            <option value="06">06</option>
-                                                            <option value="07">07</option>
-                                                            <option value="08">08</option>
-                                                            <option value="09">09</option>
-                                                            <option value="10">10</option>
-                                                            <option value="11">11</option>
-                                                            <option value="12">12</option>
-                                                        </select>
-                                                    </span>
-                                                    <span class="selection-wrapper">
-                                                        <select name="addCardExpiryYear" id="add-card-expiry-year"
-                                                            class="select-dropdown">
-                                                            <option value="2025" selected>2025</option>
-                                                            <option value="2026">2026</option>
-                                                            <option value="2027">2027</option>
-                                                            <option value="2028">2028</option>
-                                                            <option value="2029">2029</option>
-                                                            <option value="2030">2030</option>
-                                                            <option value="2031">2031</option>
-                                                            <option value="2032">2032</option>
-                                                            <option value="2033">2033</option>
-                                                            <option value="2034">2034</option>
-                                                            <option value="2035">2035</option>
-                                                            <option value="2036">2036</option>
-                                                        </select>
-                                                    </span>
-                                                </div>
+                                </div>
+                                <div id="add-cardholder-name" class="a-row a-sm-mb">
+                                    <div class="a-span4 a-text-right">
+                                        <label id="add-cardholder-label" for="cardholder" class="a-form-label">Name
+                                            on card</label>
+                                    </div>
+                                    <div class="a-span8">
+                                        <input id="cardholder" name="addCardholderName" type="text"
+                                            class="a-input-text">
+                                    </div>
+                                </div>
+                                <div id="add-card-expiry-date" class="a-row a-sm-mb">
+                                    <div class="a-span4 a-text-right">
+                                        <label id="add-card-expiry-label" for="add-card-expiration-date"
+                                            class="a-form-label">Expiration date</label>
+                                    </div>
+                                    <div class="a-span8 a-row">
+                                        <div class="a-row">
+                                            <div class=" d-flex gp-4">
+                                                <span class="selection-wrapper"
+                                                    id="card-expiration-date-selection-wrapper">
+                                                    <select id="add-card-expiration-date" class="select-dropdown"
+                                                        name="addCardExpiryDate">
+                                                        <option value="01" selected>01</option>
+                                                        <option value="02">02</option>
+                                                        <option value="03">03</option>
+                                                        <option value="04">04</option>
+                                                        <option value="05">05</option>
+                                                        <option value="06">06</option>
+                                                        <option value="07">07</option>
+                                                        <option value="08">08</option>
+                                                        <option value="09">09</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                    </select>
+                                                </span>
+                                                <span class="selection-wrapper">
+                                                    <select name="addCardExpiryYear" id="add-card-expiry-year"
+                                                        class="select-dropdown">
+                                                        <option value="2025" selected>2025</option>
+                                                        <option value="2026">2026</option>
+                                                        <option value="2027">2027</option>
+                                                        <option value="2028">2028</option>
+                                                        <option value="2029">2029</option>
+                                                        <option value="2030">2030</option>
+                                                        <option value="2031">2031</option>
+                                                        <option value="2032">2032</option>
+                                                        <option value="2033">2033</option>
+                                                        <option value="2034">2034</option>
+                                                        <option value="2035">2035</option>
+                                                        <option value="2036">2036</option>
+                                                    </select>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="cvv" class="a-row a-sm-mb">
-                                        <div class="a-span4 a-text-right">
-                                            <label id="add-cvv-label" for="cvv-number" class="a-form-label">CVV</label>
-                                        </div>
-                                        <div class="a-span8">
-                                            <input id="cvv-number" type="tel" class="a-input-text" maxlength="3"
-                                                size="4">
-                                        </div>
-                                    </div>
-                                    <!-- </form> -->
                                 </div>
-                                <div class="popover-right-column a-span4">
-                                    <p>Coffee Den accepts all major credit and debit cards:</p>
-                                    <div class="pmts-composite-logo-row">
-                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-1"></span>
-                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-2"></span>
-                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-3"></span>
-                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-4"></span>
+                                <div id="cvv" class="a-row a-sm-mb">
+                                    <div class="a-span4 a-text-right">
+                                        <label id="add-cvv-label" for="cvv-number" class="a-form-label">CVV</label>
                                     </div>
-                                    <div class="pmts-composite-logo-row">
-                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-5"></span>
-                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-6"></span>
-                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-7"></span>
-                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-8"></span>
-                                    </div>
-                                    <div class="pmts-composite-logo-row">
-                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-9"></span>
-                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-10"></span>
-                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-11"></span>
-                                        <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-12"></span>
+                                    <div class="a-span8">
+                                        <input id="cvv-number" type="tel" class="a-input-text" maxlength="3"
+                                            size="4">
                                     </div>
                                 </div>
+                                <!-- </form> -->
                             </div>
-                            <div class="popover-footer">
-                                <button data-action="a-popover-close" id="add-pmts-cancel-btn"
-                                    class="cancel-btn">Cancel</button>
-                                <button data-action="add-card" id="add-pmts-submit-btn" class="submit-btn" type="submit">Add your
-                                    card</button>
+                            <div class="popover-right-column a-span4">
+                                <p>Coffee Den accepts all major credit and debit cards:</p>
+                                <div class="pmts-composite-logo-row">
+                                    <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-1"></span>
+                                    <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-2"></span>
+                                    <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-3"></span>
+                                    <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-4"></span>
+                                </div>
+                                <div class="pmts-composite-logo-row">
+                                    <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-5"></span>
+                                    <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-6"></span>
+                                    <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-7"></span>
+                                    <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-8"></span>
+                                </div>
+                                <div class="pmts-composite-logo-row">
+                                    <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-9"></span>
+                                    <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-10"></span>
+                                    <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-11"></span>
+                                    <span class="pmts-indiv-issuer-img" id="pmts-indiv-issuer-logo-12"></span>
+                                </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="popover-footer">
+                            <button data-action="a-popover-close" id="add-pmts-cancel-btn"
+                                class="cancel-btn">Cancel
+                            </button>
+                            <button data-action="add-card" id="add-pmts-submit-btn" class="submit-btn" type="submit">Add your
+                                card
+                            </button>
+                        </div>
+                    </form>
                 </div>
+                <!-- END OF ADD CARD SECTION IN POPOVER -->
+
+<!-- Question 4 b. Allow the user to enter their shipping details (e.g., name, address, amount being paid). -->
+                <!-- ADD ADDRESS SECTION IN POPOVER -->
+                <div class="inner-popover-address" style="display: none;">
+                    <div class="popover-header">
+                        <h4 class="a-popover-header-content">Add New Address</h4>
+                        <button data-action="a-popover-close" class="a-popover-close-btn">X</button>
+                    </div>
+                    <form id="address-form" class="address-form">
+                        <!-- Full Name -->
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" required placeholder="John Brown">
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" required placeholder="876-555-1234">
+                        </div>
+
+                        <!-- Address Line -->
+                        <div class="form-group">
+                            <label for="addressLine">Street Address</label>
+                            <input type="text" id="addressLine" required placeholder="12 West Street, Apartment 3">
+                        </div>
+
+                        <!-- City -->
+                        <div class="form-group">
+                            <label for="city">Town / City</label>
+                            <input type="text" id="city" required placeholder="Spanish Town">
+                        </div>
+
+                        <!-- Parish -->
+                        <div class="form-group">
+                            <label for="parish">Parish</label>
+                            <select id="parish" required>
+                                <option value="" disabled selected>Select parish</option>
+                                <option>Kingston</option>
+                                <option>St. Andrew</option>
+                                <option>St. Catherine</option>
+                                <option>Clarendon</option>
+                                <option>Manchester</option>
+                                <option>St. Elizabeth</option>
+                                <option>Westmoreland</option>
+                                <option>Hanover</option>
+                                <option>St. James</option>
+                                <option>Trelawny</option>
+                                <option>St. Ann</option>
+                                <option>St. Mary</option>
+                                <option>Portland</option>
+                                <option>St. Thomas</option>
+                            </select>
+                        </div>
+
+                        <!-- Special Delivery Instructions -->
+                        <div class="form-group">
+                            <label for="instructions">Delivery Instructions (Optional)</label>
+                            <textarea id="instructions" rows="3" placeholder="Gate code, pet on property, landmark..."></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button data-action="submit-address" type="submit" class="address-submit-btn">Save Address</button>
+                    </form>
+
+                </div>
+                <!-- END OF ADD ADDRESS SECTION IN POPOVER -->
             </div>
+            <!-- END OF POPOVER -->
+
             <!-- Question 4 a. Show a summary of the shopping cart with the total cost. -->
             <div id="shopping-cart-container" class="checkout-list-container">
                 <ul id="checkout-cart-items"></ul>

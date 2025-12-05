@@ -1,5 +1,8 @@
-import { showError, clearErrors } from "./userAuth.js";
+import { showError, clearError } from "./utils.js";
 import { removeAllItemsFromCart } from "./cart.js";
+import { saveAddress, openAddAddressPopover } from "./addresses.js";
+import { addCard, openAddCardPopover, closeAddCardPopover, displayCards } from "./paymentMethods.js";
+import { User } from "./User.js";
 
 const cart = document.getElementById("shopping-cart-items");
 const subTotalPriceEl = document.getElementById("sub-total-price");
@@ -13,12 +16,15 @@ const taxedAmtEl = document.getElementById("taxed-amt");
 const taxEl = document.getElementById("tax");
 const confirmCheckoutBtn = document.getElementById("confirm-checkout-btn");
 const pmtsPopoverContainer = document.querySelector(".popover-container");
-const pmtsaPopoverCloseBtn = document.querySelector(".a-popover-close-btn");
+const pmtsaPopoverCloseBtn = document.querySelectorAll(".a-popover-close-btn");
 const addPaymentMethodBtn = document.querySelector(".add-payment-method-btn");
+const addAddressBtn = document.querySelector(".add-address-btn");
 const submitBtnEl = document.getElementById("add-pmts-submit-btn");
 const cancelBtnEl = document.getElementById("add-pmts-cancel-btn");
 const cardDetailsForm = document.getElementById("card-details-form");
 const cardList = document.getElementById("list-of-cards");
+const noCardInfo = document.getElementById("no-cards-info");
+const addressUser = document.getElementById("user-name");
 
 export function loadCheckoutList(){
     const currentUserID = sessionStorage.getItem("userID");
@@ -103,51 +109,75 @@ export function loadCheckoutList(){
 
 }
 
+function showPopoverErrorMsg(id, message) {
+  const loader = document.querySelector(".loader");
+  setTimeout(() => {
+    if (loader) {
+      loader.style.display = "none";
+    }
+    showError(id, message);
+    clearError();
+    setTimeout(() => {
+      pmtsPopoverContainer.style.display = "none";
+    }, 3000);
+  }, 300);
+}
+
 function confirmCheckout() {
     
     const loader = document.querySelector(".loader");
     const innerPopover =document.querySelector(".inner-popover");
     console.log("confirm checkout function");
-    const currentUser = sessionStorage.getItem("userID");
-    const selectedInput = document.querySelector('input[name="selectedCard"]:checked');
+    const selectedCardInput = document.querySelector('input[name="selectedCard"]:checked');
+    const selectedAddressInput = document.querySelector('input[name="selectedAddress"]:checked');
 
+    const user = User.getCurrentUser();
 
-    if(!selectedInput){
+    if(!selectedCardInput && selectedAddressInput){
         if(pmtsPopoverContainer){
             pmtsPopoverContainer.style.display = "flex"
-                if(innerPopover){
-                    innerPopover.style.display = "none";
-                }
-            
-        
-            setTimeout(() => {
-                if(loader){loader.style.display = "none"}
-                showError("checkoutErrorMessage", "No payment method has been selected");
-                        setTimeout(() => {
-            pmtsPopoverContainer.style.display = "none"
-            }, 3000);
-            }, 300);
-
+            if(innerPopover){innerPopover.style.display = "none";}
+            showPopoverErrorMsg("checkoutErrorMessage", "No payment method has been selected");
         }
-
+        return;
     }
 
-    if(selectedInput){const selectedCard = selectedInput.value;}
+    if(!selectedAddressInput && selectedCardInput){
+        if(pmtsPopoverContainer){
+            pmtsPopoverContainer.style.display = "flex"
+            if(innerPopover){innerPopover.style.display = "none";}
+            showPopoverErrorMsg("checkoutErrorMessage", "No shipping address has been selected");
+        }
+        return;
+    }
 
-    const cards = JSON.parse(localStorage.getItem("paymentInfo")) || [];
-    const userCard = cards.find(card => card.id === Number(selectedCard));
+    if(!selectedAddressInput && !selectedCardInput){
+        if(pmtsPopoverContainer){
+            pmtsPopoverContainer.style.display = "flex"
+            if(innerPopover){innerPopover.style.display = "none";}
+            showPopoverErrorMsg("checkoutErrorMessage", "No shipping address or payment method has been selected");
+        }
+        return;
+    }
 
-    console.log(userCard);
+    const selectedCard = selectedCardInput.value;
+    const selectedAddress = selectedAddressInput.value;
+
+    const userCard = user.pmtMethods.find(card => card.id === Number(selectedCard));
+    const userShippingAddress = user.addresses.find(address => address.id === Number(selectedAddress));
+
+    console.log(user.pmtMethods);
 
     const orderedItems = [];
-    const items = JSON.parse(localStorage.getItem("cart")) || [];
+    const items = User.getUserCart();
 
-    const userItems = items.filter(item => item.user === currentUser);
+    const currentDate = new Date().toDateString();
     let subtotal = 0;
-    userItems.forEach((item) => {
+    items.forEach((item) => {
         subtotal += Number(item.price);
         console.log(subtotal);
         orderedItems.push({
+            dateOrdered: currentDate,
             itemNum: item.itemNum,
             user: item.userID,
             id: item.id,
@@ -158,10 +188,10 @@ function confirmCheckout() {
         });
     });
 
-    let totalItems = userItems.length;
+    let totalItems = items.length;
 
     const minDiscountLmt = 6000;
-    const tax = subtotal >= minDiscountLmt ? 0.10 : 0.3;
+    const tax = subtotal >= minDiscountLmt ? 0.10 : 0.03;
     const text = totalItems > 1 ? "items" : "item";
     let discount = subtotal >= minDiscountLmt ? 0.05 : 0;
     const discountAmt = subtotal*discount;
@@ -178,7 +208,7 @@ function confirmCheckout() {
 
     const now = new Date();
     const newOrders = {
-        userId: currentUser,
+        userId: user.id,
         orderId: Date.now(),
         orderDate: now.toLocaleDateString(),
         cardInfo: {
@@ -189,175 +219,109 @@ function confirmCheckout() {
             expiryYear: userCard.expiryYear,
             cvvNumber: userCard.cvvNumber
         },
+        shippingAddress: {
+            id: userShippingAddress.id,
+            fullName: userShippingAddress.fullName,
+            phone: userShippingAddress.phone,
+            street: userShippingAddress.street,
+            city: userShippingAddress.city,
+            parish: userShippingAddress.parish,
+            instructions: userShippingAddress.instructions,
+        },
         orders: orderedItems,
         receipt: receipt
     }
 
-    const orders = JSON.parse(localStorage.getItem("Orders")) || [];
-    orders.push(newOrders);
-
-    localStorage.setItem("Orders", JSON.stringify(orders));
-    removeAllItemsFromCart(currentUser);
-    
-
-
-    
-        if(pmtsPopoverContainer){
-            pmtsPopoverContainer.style.display = "flex"
-                if(innerPopover){
-                    innerPopover.style.display = "none";
-                }
-            setTimeout(() => {
-            if(loader){loader.style.display = "none"}
-            pmtsPopoverContainer.style.display = "none"
-            }, 3000);
-        }
-
-        window.location.replace("/pages/cart/invoice.html");
-
-
-}
-
-function closeAddCardPopover(e){
-    const closeAction = e.target.dataset.action;
-
-    if(closeAction === "a-popover-close"){
-        if(pmtsPopoverContainer){
-            pmtsPopoverContainer.style.display = "none"
-        }
-    }
-}
-
-function openAddCardPopover(e){
-    const loader = document.querySelector(".loader");
-    const innerPopover =document.querySelector(".inner-popover");
-    const errorEl = document.getElementById("checkoutErrorMessage");
-    const openAction = e.target.dataset.action;
-    if(openAction === "a-add-card-popover-open"){
-        if(pmtsPopoverContainer){
-            pmtsPopoverContainer.style.display = "flex";
-            setTimeout(() => {
-                if(innerPopover){
-                    innerPopover.style.display = "block";
-                }
-            if(loader){loader.style.display = "none"}
-            }, 3000);
-        }
-    }
-}
-
-function addCard(cardNumber, cardHolder, expiryDate, expiryYear, cvvNumber){
-
-    const loader = document.querySelector(".loader");
-    const currentUser = sessionStorage.getItem("userID");
-    const newCard = {
-        userID: currentUser,
-        id: Date.now(),
-        cardNumber: cardNumber.slice(-4),
-        cardHolder: cardHolder,
-        expiryDate: expiryDate,
-        expiryYear: expiryYear,
-        cvvNumber: cvvNumber
+    const newInvoice = {
+        user: {
+            trn: user.trn,
+            name: `${user.firstName} ${user.lastName}`,
+            email: user.email,
+            phone: user.phone
+        },
+        invoiceNum: `CD${newOrders.orderId}`,
+        orderDate: now.toLocaleDateString(),
+        cardInfo: {
+            id: userCard.id,
+            cardNumber: userCard.cardNumber,
+            cardHolder: userCard.cardHolder,
+        },
+        shippingAddress: {
+            id: userShippingAddress.id,
+            fullName: userShippingAddress.fullName,
+            phone: userShippingAddress.phone,
+            street: userShippingAddress.street,
+            city: userShippingAddress.city,
+            parish: userShippingAddress.parish,
+            instructions: userShippingAddress.instructions,
+        },
+        orders: orderedItems,
+        receipt: receipt
     }
 
-    if(loader){loader.style.display = "block"}
+    User.saveOrders(newOrders);
+    const invoiceNumber = User.saveInvoice(newInvoice);
 
-    const paymentInfo = JSON.parse(localStorage.getItem("paymentInfo")) || [];
-    const newCardLastFourDigits = cardNumber.slice(-4);
-    const filteredCard = paymentInfo.filter(digit => {return digit.cardNumber === newCardLastFourDigits || digit.cvvNumber === cvvNumber});
+    // Question 5 b
+    const localInvoices = JSON.parse(localStorage.getItem("AllInvoices")) || [];
+    localInvoices.push(newInvoice);
+    localStorage.setItem("AllInvoices", JSON.stringify(localInvoices));
 
-    if(filteredCard.length > 0){   
-        setTimeout(() => {
-            if(loader){loader.style.display = "none"}
-            if(pmtsPopoverContainer){
-                pmtsPopoverContainer.style.display = "none"
-                cardDetailsForm.reset();
+
+    removeAllItemsFromCart(user);    
+
+    if(pmtsPopoverContainer){
+        pmtsPopoverContainer.style.display = "flex"
+            if(innerPopover){
+                innerPopover.style.display = "none";
             }
-        }, 5000)
-        return;
-    }
-    paymentInfo.push(newCard);
-    localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
-
-    setTimeout(() => {
+        setTimeout(() => {
         if(loader){loader.style.display = "none"}
-        if(pmtsPopoverContainer){
-            displayCards();
-            pmtsPopoverContainer.style.display = "none"
-            cardDetailsForm.reset();
-        }
-    }, 5000)
+        pmtsPopoverContainer.style.display = "none"
+        }, 3000);
+    }
+
+    if(invoiceNumber){window.location.replace(`/pages/cart/invoice.html?invoice=${invoiceNumber}`);}
+
+
 }
 
-function displayCards(){
-    const currentUser = sessionStorage.getItem("userID");
-    const cards = JSON.parse(localStorage.getItem("paymentInfo")) || [];
-    const userCards = cards.filter(card => card.userID === currentUser);
-
-    // if(userCards === 0){
-    //     cart.innerHTML = "";
-    //     emptyCartMsg.style.display = "block";
-    //     subTotalPriceEl.textContent = "";
-    //     return;
-    // }
-
-    const groupCards = {};
-
-    userCards.forEach((card) => {
-        // total += Number(item.price);
-        if(groupCards[card.id]){
-            groupCards[card.id].count++;
-        } else {
-            groupCards[card.id] = {...card, count:1};
-        }
-    })
-    
-    Object.values(groupCards).forEach((card) => {
-        const cardEndingNumber = card.cardNumber.slice(-4);
-        cardList.innerHTML += `
-            <li class="card-list-heading" data-id="${card.id}">
-                <input type="radio" name="selectedCard" value="${card.id}"/>
-                <div class="a-span6">
-                    <img src="/assets/visa.jpg" class="cart-img" />
-                    <span class="card-type"> 
-                        Visa
-                    </span>
-                    <span>
-                        ending in ${cardEndingNumber}
-                    </span>
-                </div>
-                <div class="cardholder-name a-span3">
-                    <p>${card.cardHolder}</p>
-                </div>
-                <div class="expiresOn a-text-right a-span3">
-                    <span class="card-expiry-date">${card.expiryDate}/${card.expiryYear}</span>
-                </div>
-            </li>
-        `;
-        console.log(card.userID, card.id, card.cardHolder, card.expiryDate, card.expiryYear, card.cardNumber, cardEndingNumber);
-    });
-}
 
 document.addEventListener("DOMContentLoaded", () => {
+    if(addressUser){addressUser.innerHTML = sessionStorage.getItem("user");}
+
     loadCheckoutList();
     displayCards();
-    if(cart){cart.addEventListener("click", (e) => onRemoveClick(e, loadCheckoutList));}
-    if(confirmCheckoutBtn){confirmCheckoutBtn.addEventListener("click", confirmCheckout);};
-    if(pmtsaPopoverCloseBtn){pmtsaPopoverCloseBtn.addEventListener("click", (e) => closeAddCardPopover(e));};
 
-    if(addPaymentMethodBtn){addPaymentMethodBtn.addEventListener("click", (e) => openAddCardPopover(e));};
-    if(cancelBtnEl){cancelBtnEl.addEventListener("click", (e) => closeAddCardPopover(e))}
+    if(cart){cart.addEventListener("click", (e) => onRemoveClick(e, loadCheckoutList));}
+    if(confirmCheckoutBtn){confirmCheckoutBtn.addEventListener("click", confirmCheckout);}
+    if(pmtsaPopoverCloseBtn){pmtsaPopoverCloseBtn.forEach(close => {close.addEventListener("click", (e) => closeAddCardPopover(e));})}
+    if(addPaymentMethodBtn){addPaymentMethodBtn.addEventListener("click", (e) => openAddCardPopover(e));}
+    if(addAddressBtn){addAddressBtn.addEventListener("click", (e) => openAddAddressPopover(e));}
+
     if(cardDetailsForm){
-        cardDetailsForm.addEventListener("submit", (e) => {
+        cardDetailsForm.addEventListener("click", (e) => {
+            const action = e.target.dataset.action;
             e.preventDefault();
             const cardNumber = document.getElementById("card-number").value;
             const cardHolder = document.getElementById("cardholder").value;
             const expiryDate = document.getElementById("add-card-expiration-date").value;
             const expiryYear = document.getElementById("add-card-expiry-year").value;
             const cvvNumber = document.getElementById("cvv-number").value;
-            addCard(cardNumber, cardHolder, expiryDate, expiryYear, cvvNumber);
+            if(action == "add-card"){
+                addCard(cardNumber, cardHolder, expiryDate, expiryYear, cvvNumber);
+            }
+
+            if(action === "a-popover-close"){
+                closeAddCardPopover(e)
+            }
         })
     }
+
+    document.getElementById("address-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        saveAddress();
+    });
 
 
 });

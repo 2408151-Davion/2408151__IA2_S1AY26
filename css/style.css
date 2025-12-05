@@ -1,7 +1,7 @@
 
 :root {
     --primary-color: rgb(23, 102, 192);
-    --secondary-color: #02002b;
+    --secondary-color: #050056;
     --primary-text: azure;
     --bg:#e9ebed;
     --card:#ffffff;
@@ -28,6 +28,14 @@ body {
 
 a {
     text-decoration: none;
+}
+
+.muted-text {
+    color: var(--muted);
+}
+
+.text-center {
+    text-align: center;
 }
 
 .btn {
@@ -496,6 +504,7 @@ hr {
 .product-details {
     margin: 20px auto;
 }
+
 .product-details {
     display: flex;
     gap: 20px;
@@ -812,27 +821,32 @@ hr {
     width: 100%;
     margin-top: 30px;
     position: relative;
+    overflow: hidden;
 }
 
 .horizontal-line {
     position: absolute;
     width: 100%;
-    padding: 20px;
+    padding: 0px 20px;
     top: 50px;
 }
 
 .add-payment-method {
     width: 100%;
     background-color: var(--card);
-    min-height: 300px;
+    min-height: 100px;
     border-radius: var(--radius);
 }
 
-.add-payment-method-btn {
+.cards-list-container {
+    padding-bottom: 20px;
+}
+
+.add-payment-method-btn{
     position: relative;
     cursor: pointer;
     top: 20px;
-    padding: 20px;
+    margin-left: 20px;
     color: var(--accent);
 }
 
@@ -841,19 +855,25 @@ hr {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    padding-left: 20px;
 }
 
 .cards-list {
-    padding-left: 20px;
+    padding-left: 0px;
+    margin-bottom: 20px;
 }
 
 .expiresOn {
     float: right;
 }
 
-.cards-list-container {
-    margin-top: 30px;
+.cardholder-name-heading {
+    text-align: center;
 }
+
+/* .cards-list-container {
+     margin-top: 30px; 
+} */
 
 .pmts-composite-logo-row {
     height: 35px;
@@ -871,6 +891,119 @@ hr {
 .add-card-form {
     height: 100%;
 }
+
+.inner-popover-card {
+    border-radius: 10px;
+}
+/* ________________________________________________________________________________________________________________
+                                    
+                                        CHECKOUT ADDRESS SECTION
+________________________________________________________________________________________________________________ */
+
+.address-container {
+    background-color: var(--card);
+    min-height: 100px;
+    border-radius: var(--radius);
+    margin-top: 20px;
+}
+
+.address-list-container {
+    width: 100%;
+    overflow: hidden;
+    height: auto;
+    position: relative;
+}
+.inner-popover-address {
+    background: white;
+    /* padding: 20px; */
+    width: 50%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.address-list-header {
+    display: flex;
+    align-items: baseline;
+    /* margin-top: 20px; */
+    justify-content: space-between;
+}
+
+.add-address-btn {
+    cursor: pointer;
+    margin-left: 20px;
+    color: var(--accent);
+}
+
+.delivering-to-user-text{
+    color: var(--secaondary-text-color);
+}
+
+.address-form {
+    width: 100%;
+    padding: 20px 25px;
+    background: #fafafa;
+    margin: 0 auto;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.address-submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: #1a73e8;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #125ab2;
+}
+
+.address-list{
+    overflow: hidden;
+    padding: 0 10px;
+}
+
+.address-card {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.remove-address {
+    margin-left: auto;
+}
+
+
+/* _______________________________________________________________________________________________________________
+
+                                            END OF ADDRESS SECTION
+_______________________________________________________________________________________________________________ */
 
 #pmts-indiv-issuer-logo-1 {
     background-image: url("/assets/sprite-map._CB636461779_.png");
@@ -939,8 +1072,14 @@ hr {
     /* display: none; */
 }
 
-/*Invoice*/
+.loader-img {
+    width: 100px;
+}
 
+/* _______________________________________________________________________________________________________________ */
+
+                                                    /*Invoice*/
+/* _______________________________________________________________________________________________________________ */
 .invoice-container {
     width: 1000px;
     margin: 20px auto;
@@ -952,10 +1091,10 @@ hr {
     overflow: hidden;
 }
 
-/* .header {
+.invoice-header {
     display: flex;
     justify-content: space-between;
-} */
+}
 
 .invoice-title {
     font-size: 28px;

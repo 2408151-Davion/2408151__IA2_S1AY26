@@ -1,6 +1,6 @@
 import products from "./productsList.js";
-import access from "./access.js";
-import { loadCart } from "./cart.js";
+import { addToCart } from "./cart.js";
+import { showMessage } from "./utils.js";
 
 let uriRoot = "";
 const host = location.hostname;
@@ -15,18 +15,11 @@ const container = document.getElementById("product-container");
 const productPage = `${uriRoot}/pages/shop/products/product.html`;
 const productDetailsEl = document.querySelector(".product-details");
 
-export function showMessage(id, message){
-    const el = document.getElementById(id);
-    if(!el){
-        el.style.display = "none"
-        return;
-    }
-    el.textContent = message;
-    el.style.display = "block";
 
-    setTimeout(() => {
-        el.style.display = "none";
-    }, 2000);
+export function getProduct(pid){
+    const allProducts = JSON.parse(localStorage.getItem("AllProducts")) || [];
+    const product = allProducts.find(product => product.id === pid);
+    return product;
 }
 
 // Question 2 c. Display the product list dynamically on the website. & d. Each product should have an “Add to Cart” button.
@@ -110,48 +103,7 @@ function productDetails(){
     productPrice.appendChild(addToCartBtnDiv);
 };
 
-// Question 2 e. Add to Cart
-export function addToCart(pid){
-    const allProducts = JSON.parse(localStorage.getItem("AllProducts")) || [];
-    const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
-    
-    const currentUserID = Number(sessionStorage.getItem("userID"));
-    // const productId = pid;
 
-    if(!access.isLoggedIn()){
-        alert("You must be logged in to add items to your cart.");
-        return;
-    }
-
-    const product = allProducts.find(product => product.id === pid);
-
-    const itemNum = Math.floor(Math.random() * 9000) + 1000;
-
-    const user = users.find(u => u.id == currentUserID);
-    const cart = user.cart;
-    cart.push({
-        itemNum: itemNum,
-        user: currentUserID,
-        id: product.id,
-        image: product.image,
-        name: product.name,
-        description: product.description,
-        price: product.price
-    });
-    localStorage.setItem("RegistrationData", JSON.stringify(users));
-
-    showMessage(`atc-message-${pid}`, "Added to cart successfully");
-    setTimeout(() => {
-        const cartFooter = document.getElementById("cart-footer");
-        const cartEl = document.getElementById("shopping-cart-items");
-        //Clear the element before reloading the cart to update it
-        if(cartEl){cartEl.innerHTML = "";}
-        if(cartFooter){cartFooter.style.display = "none";}
-
-        loadCart();
-    }, 300);
-    
-};
 
 // Question 2 a. Product List (Using Arrays & Objects) & b.	An updated product list must be kept on localStorage, as AllProducts. 
 function addProductsToStorage(){

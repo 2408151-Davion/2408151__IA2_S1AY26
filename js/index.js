@@ -36,8 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const authButtons = document.getElementById("authButtons");
     const registerBtn = document.getElementById("registerBtn");
-    authButtons.style.cursor = "pointer";
-    registerBtn.style.cursor = "pointer";
+    if(authButtons){authButtons.style.cursor = "pointer";}
+    if(registerBtn){registerBtn.style.cursor = "pointer";}
 
     const loginButton = document.createElement("a");
     // loginButton.setAttribute("href", "C:\Users\coder\source\repos\2408151__IA2_S1AY26\pages\login.html")
