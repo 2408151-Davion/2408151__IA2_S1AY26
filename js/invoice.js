@@ -73,7 +73,7 @@ export function displayInvoice(invoiceNum){
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const invoiceNum = urlParams.get("invoice");
-
+console.log(invoiceNum);
     if (invoiceNum) {
         displayInvoice(invoiceNum);
     }

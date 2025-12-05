@@ -1,6 +1,8 @@
 import access from "./access.js";
 import auth from "./userAuth.js";
 import { index, logo, closeXIcon } from "./links.js";
+import { showUserFrequency, ShowInvoices } from "./dashboard.js";
+import { invoice } from "./links.js";
 
 const logoLink = document.querySelectorAll(".logo-link");
 const logoImg = document.querySelectorAll(".logo-img");
@@ -14,6 +16,9 @@ if(host == "2408151-davion.github.io"){
 } else if(host == "127.0.0.1") {
     window.uriRoot = "";
 }
+
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
     if(logoLink){
@@ -84,7 +89,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     auth.endUserSession();
 
+    showUserFrequency();
+
+    // Show everything
+    console.log(ShowInvoices());
+
+    // Search by TRN
+    console.log(ShowInvoices("123456789"));
+
+
+document.getElementById("invoiceSearchForm").addEventListener("submit", function (event) {
+    event.preventDefault();
     
+    ShowInvoices()
+});
+
 
     
 });

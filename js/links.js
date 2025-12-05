@@ -16,3 +16,5 @@ export const logo = `${uriRoot}/assets/logo_white.png`;
 export const closeXIcon = `${uriRoot}/assets/close-x-white.png`;
 
 export const checkOutBtnLink = `${uriRoot}/pages/cart/checkout.html`;
+
+export const invoice = `${uriRoot}/pages/cart/invoice.html`;

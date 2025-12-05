@@ -27,7 +27,7 @@ export class User {
     static getAllUsers(){
         return JSON.parse(localStorage.getItem("RegistrationData")) || [];
     }
-    
+
     static getUser(userID){
         const users = this.getAllUsers();
         const currentUserID = Number(userID);
@@ -132,6 +132,16 @@ export class User {
         const invoice = invoices.find(i => i.invoiceNum == id) || null;
         return invoice;
     }
+
+    static GetUserInvoices(trn) {
+        const allInvoices = JSON.parse(localStorage.getItem("AllInvoices")) || [];
+
+        const userInvoices = allInvoices.filter(inv => inv.trn == trn);
+
+        console.log(`Invoices for TRN ${trn}:`, userInvoices);
+        return userInvoices;
+    }
+
 };
 
 export function getUser(userID){
