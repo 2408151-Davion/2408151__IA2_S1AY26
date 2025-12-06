@@ -11,6 +11,7 @@ export function clearError(id){
     const el = document.getElementById(id);
     if(!el) return;
     el.textContent = "";
+    el.style.display = 'none';
 }
 
 export function clearErrors(form){

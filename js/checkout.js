@@ -116,22 +116,27 @@ function showPopoverErrorMsg(id, message) {
       loader.style.display = "none";
     }
     showError(id, message);
-    clearError();
     setTimeout(() => {
       pmtsPopoverContainer.style.display = "none";
+      loader.style.display = "block";
+    clearError(id);
     }, 3000);
-  }, 300);
+  }, 2000);
 }
 
 function confirmCheckout() {
     
     const loader = document.querySelector(".loader");
+    const innerPopoverCard =document.querySelector(".inner-popover-card");
+    const innerPopoverAddress =document.querySelector(".inner-popover-address");
     const innerPopover =document.querySelector(".inner-popover");
     console.log("confirm checkout function");
     const selectedCardInput = document.querySelector('input[name="selectedCard"]:checked');
     const selectedAddressInput = document.querySelector('input[name="selectedAddress"]:checked');
 
     const user = User.getCurrentUser();
+        if(pmtsPopoverContainer){
+            pmtsPopoverContainer.style.display = "flex"}
 
     if(!selectedCardInput && selectedAddressInput){
         if(pmtsPopoverContainer){
