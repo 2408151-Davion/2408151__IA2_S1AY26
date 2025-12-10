@@ -11,6 +11,8 @@ export const checkoutBtnEl = document.querySelectorAll(".checkout-btn");
 
 export const index = `${uriRoot}/index.html`;
 
+export const shop = `${uriRoot}/pages/shop/shop.html`;
+
 export const cart = `${uriRoot}/pages/cart/cart.html`;
 
 export const invoice = `${uriRoot}/pages/cart/invoice.html`;

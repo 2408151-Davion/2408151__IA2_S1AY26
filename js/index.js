@@ -1,14 +1,14 @@
 import access from "./access.js";
 import auth from "./userAuth.js";
-import { index, logo, closeXIcon, cart, dashboard } from "./links.js";
+import { index, logo, closeXIcon, cart, dashboard, shop, invoice } from "./links.js";
 import { showUserFrequency, ShowInvoices } from "./dashboard.js";
-import { invoice } from "./links.js";
 
 const logoLink = document.querySelectorAll(".logo-link");
 const logoImg = document.querySelectorAll(".logo-img");
 const closeXEl = document.querySelectorAll(".close-btn-icon");
 const chkoutCnlBtn = document.getElementById("checkout-cancel-btn");
 const dashboardEl = document.querySelectorAll(".dashboard");
+const shopLink = document.getElementById("more-products");
 
 window.uriRoot = "";
 const host = location.hostname;
@@ -23,6 +23,10 @@ if(host == "2408151-davion.github.io"){
 
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    if(shopLink){
+        shopLink.href = shop;
+    }
     
     if(dashboardEl){
         dashboardEl.forEach(a => {
