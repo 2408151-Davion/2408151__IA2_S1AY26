@@ -1,3 +1,4 @@
+import { viseCardImg } from "./links.js";
 import { User } from "./User.js";
 import { popoverDelay } from "./utils.js";
 
@@ -113,7 +114,7 @@ export function displayCards(){
             <li class="card-list-heading" data-id="${card.id}">
                 <input type="radio" name="selectedCard" value="${card.id}"/>
                 <div class="a-span6">
-                    <img src="/assets/visa.jpg" class="cart-img" />
+                    <img src="${viseCardImg}" class="cart-img" />
                     <span class="card-type"> 
                         Visa
                     </span>

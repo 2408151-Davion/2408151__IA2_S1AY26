@@ -1,12 +1,13 @@
 import access from "./access.js";
 import auth from "./userAuth.js";
-import { index, logo, closeXIcon } from "./links.js";
+import { index, logo, closeXIcon, cart } from "./links.js";
 import { showUserFrequency, ShowInvoices } from "./dashboard.js";
 import { invoice } from "./links.js";
 
 const logoLink = document.querySelectorAll(".logo-link");
 const logoImg = document.querySelectorAll(".logo-img");
 const closeXEl = document.querySelectorAll(".close-btn-icon");
+const chkoutCnlBtn = document.getElementById("checkout-cancel-btn");
 
 window.uriRoot = "";
 const host = location.hostname;
@@ -37,6 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
         closeXEl.forEach(img => {
             img.src = closeXIcon;
         });
+    }
+
+    if(chkoutCnlBtn){
+        chkoutCnlBtn.href = cart;
     }
 
     const authButtons = document.getElementById("authButtons");
