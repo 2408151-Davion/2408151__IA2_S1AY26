@@ -96,13 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     showUserFrequency();
 
-    // Show everything
-    // console.log(ShowInvoices());
-
-    // Search by TRN
-    // console.log(ShowInvoices("123456789"));
-
-
     const invoiceForm = document.getElementById("invoiceSearchForm");
     if(invoiceForm){
         invoiceForm.addEventListener("submit", function (event) {
