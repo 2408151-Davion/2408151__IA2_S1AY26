@@ -27,6 +27,8 @@ const cardList = document.getElementById("list-of-cards");
 const noCardInfo = document.getElementById("no-cards-info");
 const addressUser = document.getElementById("user-name");
 const shoppingCartImg = document.querySelector(".shopping-cart");
+const loader = document.querySelector(".loader");
+const loaderImg = document.querySelector(".loader-img");
 
 export function loadCheckoutList(){
     const userItems = User.getUserCart();
@@ -106,8 +108,6 @@ export function loadCheckoutList(){
 }
 
 function showPopoverErrorMsg(id, message) {
-  const loader = document.querySelector(".loader");
-  loader.src = loaderIcon;
   setTimeout(() => {
     if (loader) {
       loader.style.display = "none";
@@ -122,9 +122,6 @@ function showPopoverErrorMsg(id, message) {
 }
 
 function confirmCheckout() {
-    
-    const loader = document.querySelector(".loader");
-    loader.src = loaderIcon;
     const innerPopoverCard =document.querySelector(".inner-popover-card");
     const innerPopoverAddress =document.querySelector(".inner-popover-address");
     const innerPopover =document.querySelector(".inner-popover");
@@ -291,8 +288,9 @@ function confirmCheckout() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    if(addressUser){addressUser.innerHTML = sessionStorage.getItem("user");}
-    if(shoppingCartImg){shoppingCartImg.src = checkOutBtnIcon;}
+    addressUser?.innerHTML = sessionStorage.getItem("user");
+    shoppingCartImg?.src = checkOutBtnIcon;
+    loaderImg?.src = loaderIcon;
 
     loadCheckoutList();
     displayCards();
