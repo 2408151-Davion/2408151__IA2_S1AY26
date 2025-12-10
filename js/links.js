@@ -30,3 +30,5 @@ export const checkOutBtnIcon = `${uriRoot}/assets/shopping-cart.png`;
 export const loaderIcon = `${uriRoot}/assets/loader.gif`;
 
 export const viseCardImg = `${uriRoot}/assets/visa.jpg`;
+
+export const accLocked = `${uriRoot}/pages/account_locked.html`;

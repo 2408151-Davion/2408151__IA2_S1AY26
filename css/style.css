@@ -1173,3 +1173,21 @@ table th {
     cursor: pointer;
     border: none;
 }
+
+/* Account Locked */
+
+.acc-locked {
+    display: block;
+    align-content: center;
+    width: 80%;
+    height: 150px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--muted);
+    border-radius: var(--radius);
+    margin: 150px auto;
+    padding: 20px;
+    border-left: 8px solid var(--danger);
+    background-color: var(--bg);
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}

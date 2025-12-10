@@ -1,6 +1,6 @@
 import { showError, clearErrors, clearInputErrors } from "./utils.js";
 import {User} from "./User.js";
-import { index } from "./links.js";
+import { accLocked, index } from "./links.js";
 
 
 const tabRegister = document.getElementById('tab-register');
@@ -188,6 +188,7 @@ function login(identifier, password){
             else {
                 alert("Account Locked!");
                 document.querySelector("#login-btn").disabled = true; 
+                window.location.replace(accLocked);
             }
         }
 
