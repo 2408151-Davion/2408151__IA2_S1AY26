@@ -10,6 +10,9 @@ const toLoginLink = document.getElementById('to-login');
 const toRegisterLink = document.getElementById('to-register');
 
 
+let attempt = 3;
+
+
 function showRegister() {
     tabRegister.classList.add('active'); tabRegister.classList.remove('inactive');
     tabLogin.classList.remove('active'); tabLogin.classList.add('inactive');
@@ -161,24 +164,32 @@ function isloginUserValid(identifier, password){
 
 // Question 1. b-ii.	validate this login data by checking the currently entered trn and password against data associated with the localStorage key called, RegistrationData. 
 function login(identifier, password){
+
     let userValues = JSON.parse(localStorage.getItem("RegistrationData")) || [];
-    userValues = userValues.find(
-        u => u.trn === identifier || 
-        u.email === identifier && 
+    const user = userValues.find(
+        u => (u.trn === identifier || 
+        u.email === identifier) && 
         u.password === password)
 
-        // console.log(userValues);
+        // console.log(userValues); 
+        if(user){
+            sessionStorage.setItem("user", `${user.firstName} ${user.lastName}`);
+            sessionStorage.setItem("userID", user.id);
+            sessionStorage.setItem("userTRN", user.trn);
+            setTimeout(() => {
+                window.location.replace("http://127.0.0.1:5500/index.html");
+            }, 50);
+        } else {
+            
+            attempt--;
+            document.getElementById("attempts").innerHTML = `Attempts left: ${attempt}`;
+            if(attempt > 0) {showError("err-failed", "Incorrect Username or Password");}
+            else {
+                alert("Account Locked!");
+                document.querySelector("#login-btn").disabled = true; 
+            }
+        }
 
-    if(userValues){
-        sessionStorage.setItem("user", `${userValues.firstName} ${userValues.lastName}`);
-        sessionStorage.setItem("userID", userValues.id);
-        sessionStorage.setItem("userTRN", userValues.trn);
-        setTimeout(() => {
-            window.location.replace("http://127.0.0.1:5500/index.html");
-        }, 50);
-    } else {
-        showError("err-failed", "Incorrect Username or Password");
-    }
 }
 
 // Question 1 a-iv.	visitor must be over 18 years old to register. 

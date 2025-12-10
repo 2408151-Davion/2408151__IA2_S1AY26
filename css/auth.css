@@ -111,6 +111,11 @@ select{
 }
 input:focus{box-shadow:0 0 0 4px rgba(79,70,229,0.08); border-color:var(--accent)}
 
+button:disabled {
+    background-color: var(--muted);
+    cursor: auto;
+}
+
 .row {display:flex; gap:10px;}
 .row .field{flex:1}
 
