@@ -29,13 +29,7 @@ const addressUser = document.getElementById("user-name");
 const shoppingCartImg = document.querySelector(".shopping-cart");
 
 export function loadCheckoutList(){
-    // const currentUserID = sessionStorage.getItem("userID");
-    // const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
-    // const user = users.find(u => u.id == currentUserID);
     const userItems = User.getUserCart();
-
-    // const items = JSON.parse(localStorage.getItem("cart") || []);
-    // const userItems = items.filter(item => item.user === currentUser);
 
     if(userItems === 0){
         cart.innerHTML = "";
@@ -332,6 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         saveAddress();
     });
+
 
 
 });
