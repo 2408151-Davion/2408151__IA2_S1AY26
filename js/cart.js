@@ -1,5 +1,5 @@
 import {getProduct, listRandomProducts} from "./products.js";
-import { index, checkOutBtnLink, checkoutBtnEl } from "./links.js";
+import { index, checkOutBtnLink, checkoutBtnEl, login } from "./links.js";
 import { showMessage } from "./utils.js";
 import access from "./access.js";
 import { User } from "./User.js";
@@ -24,7 +24,7 @@ const closeCartBtn = document.querySelector(".closeCart");
 // Question 2 e. Add to Cart
 export function addToCart(pid){
     if(!access.isLoggedIn()){
-        alert("You must be logged in to add items to your cart.");
+        alert(`You must be logged in to add items to your cart. ${login}`);
         return;
     }
 
