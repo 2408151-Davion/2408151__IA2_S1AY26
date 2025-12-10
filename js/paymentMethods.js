@@ -98,7 +98,7 @@ export function displayCards(){
     const user = users.find(u => u.id == currentUserID);
     const userCards = user.pmtMethods;
 
-    if(userCards < 1){
+    if(userCards < 1 || []){
         if(noCardInfo){noCardInfo.style.display = "block";}
         return;
     }
