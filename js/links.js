@@ -17,6 +17,8 @@ export const invoice = `${uriRoot}/pages/cart/invoice.html`;
 
 export const login = `${uriRoot}/pages/login.html`;
 
+export const dashboard = `${uriRoot}/dashboard.html`
+
 export const logo = `${uriRoot}/assets/logo_white.png`;
 
 export const closeXIcon = `${uriRoot}/assets/close-x-white.png`;
