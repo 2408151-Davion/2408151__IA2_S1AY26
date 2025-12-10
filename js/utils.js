@@ -1,3 +1,4 @@
+import { loaderIcon } from "./links";
 
 
 export function showError(id, message){
@@ -45,6 +46,7 @@ export function showMessage(id, message){
 
 export function popoverDelay(action){
     const loader = document.querySelector(".loader");
+  loader.src = loaderIcon;
     const pmtsPopoverContainer = document.querySelector(".popover-container");
     setTimeout(() => {
     if(loader){loader.style.display = "none"}

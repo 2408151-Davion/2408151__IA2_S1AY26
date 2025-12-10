@@ -1,3 +1,4 @@
+import { User } from "./User.js";
 import { popoverDelay } from "./utils.js";
 
 
@@ -9,10 +10,10 @@ const noCardInfo = document.getElementById("no-cards-info");
 export function addCard(cardNumber, cardHolder, expiryDate, expiryYear, cvvNumber){
 
     const loader = document.querySelector(".loader");
-    const currentUserID = sessionStorage.getItem("userID");
-    const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
-    const user = users.find(u => u.id == currentUserID);
-    const userCards = user.pmtMethods;
+    // const currentUserID = sessionStorage.getItem("userID");
+    // const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
+    // const user = users.find(u => u.id == currentUserID);
+    const userCards = User.getUserPmtMthds();
 
 
     if(loader){loader.style.display = "block"}
@@ -32,7 +33,7 @@ export function addCard(cardNumber, cardHolder, expiryDate, expiryYear, cvvNumbe
         return;
     }
     
-    user.pmtMethods.push({
+    User.savePmtMthds({
         userID: currentUserID,
         id: Date.now(),
         cardNumber: cardNumber.slice(-4),
@@ -57,13 +58,10 @@ export function addCard(cardNumber, cardHolder, expiryDate, expiryYear, cvvNumbe
 }
 
 export function closeAddCardPopover(e){
-    // const closeAction = e.target.dataset.action;
 
-    // if(closeAction === "a-popover-close"){
         if(pmtsPopoverContainer){
             pmtsPopoverContainer.style.display = "none"
         }
-    // }
 }
 
 export function openAddCardPopover(e){

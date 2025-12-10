@@ -93,6 +93,22 @@ export class User {
         const user = this.getCurrentUser();
         return user?.cart || [];
     }
+
+    static getUserPmtMthds(){
+        const user = this.getCurrentUser();
+        return user?.pmtMethods || [];
+    }
+
+    static savePmtMthds(pmtObj){
+        const user = this.getCurrentUser();
+        if(!user) return;
+        console.log(user);
+        
+        if (!user.pmtMethods) user.pmtMethods = [];
+
+        user.pmtMethods.push(pmtObj);
+        this.saveUser(user);
+    }
         
     static saveOrders(orderObj){
         const user = this.getCurrentUser();
