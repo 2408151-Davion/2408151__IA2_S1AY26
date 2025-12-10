@@ -3,7 +3,7 @@ import { removeAllItemsFromCart } from "./cart.js";
 import { saveAddress, openAddAddressPopover } from "./addresses.js";
 import { addCard, openAddCardPopover, closeAddCardPopover, displayCards } from "./paymentMethods.js";
 import { User } from "./User.js";
-import { invoice, loaderIcon } from "./links.js";
+import { checkOutBtnIcon, invoice, loaderIcon } from "./links.js";
 
 const cart = document.getElementById("shopping-cart-items");
 const subTotalPriceEl = document.getElementById("sub-total-price");
@@ -26,6 +26,7 @@ const cardDetailsForm = document.getElementById("card-details-form");
 const cardList = document.getElementById("list-of-cards");
 const noCardInfo = document.getElementById("no-cards-info");
 const addressUser = document.getElementById("user-name");
+const shoppingCartImg = document.getElementById("shopping-cart");
 
 export function loadCheckoutList(){
     // const currentUserID = sessionStorage.getItem("userID");
@@ -297,6 +298,7 @@ function confirmCheckout() {
 
 document.addEventListener("DOMContentLoaded", () => {
     if(addressUser){addressUser.innerHTML = sessionStorage.getItem("user");}
+    if(shoppingCartImg){shoppingCartImg.src = checkOutBtnIcon;}
 
     loadCheckoutList();
     displayCards();
