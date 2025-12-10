@@ -98,11 +98,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // console.log(ShowInvoices("123456789"));
 
 
-document.getElementById("invoiceSearchForm").addEventListener("submit", function (event) {
-    event.preventDefault();
-    
-    ShowInvoices()
-});
+    const invoiceForm = document.getElementById("invoiceSearchForm");
+    if(invoiceForm){
+        invoiceForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            
+            ShowInvoices()
+        });
+    }
 
 
     
