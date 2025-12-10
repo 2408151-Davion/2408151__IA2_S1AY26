@@ -1,4 +1,4 @@
-import { loaderIcon } from "./links";
+import { loaderIcon } from "./links.js";
 
 
 export function showError(id, message){
