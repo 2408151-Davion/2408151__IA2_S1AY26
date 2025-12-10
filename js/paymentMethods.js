@@ -34,7 +34,6 @@ export function addCard(cardNumber, cardHolder, expiryDate, expiryYear, cvvNumbe
     }
     
     User.savePmtMthds({
-        userID: currentUserID,
         id: Date.now(),
         cardNumber: cardNumber.slice(-4),
         cardHolder: cardHolder,
@@ -42,7 +41,7 @@ export function addCard(cardNumber, cardHolder, expiryDate, expiryYear, cvvNumbe
         expiryYear: expiryYear,
         cvvNumber: cvvNumber
     });
-    localStorage.setItem("RegistrationData", JSON.stringify(users));
+    // localStorage.setItem("RegistrationData", JSON.stringify(users));
 
 
 
