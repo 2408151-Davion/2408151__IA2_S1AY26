@@ -26,7 +26,7 @@ const cardDetailsForm = document.getElementById("card-details-form");
 const cardList = document.getElementById("list-of-cards");
 const noCardInfo = document.getElementById("no-cards-info");
 const addressUser = document.getElementById("user-name");
-const shoppingCartImg = document.getElementById("shopping-cart");
+const shoppingCartImg = document.querySelector(".shopping-cart");
 
 export function loadCheckoutList(){
     // const currentUserID = sessionStorage.getItem("userID");
