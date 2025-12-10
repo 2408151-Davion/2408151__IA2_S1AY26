@@ -20,3 +20,5 @@ export const checkOutBtnLink = `${uriRoot}/pages/cart/checkout.html`;
 export const invoice = `${uriRoot}/pages/cart/invoice.html`;
 
 export const login = `${uriRoot}/pages/login.html`;
+
+export const loaderIcon = `${uriRoot}/assets/loader.gif`;

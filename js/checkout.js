@@ -3,6 +3,7 @@ import { removeAllItemsFromCart } from "./cart.js";
 import { saveAddress, openAddAddressPopover } from "./addresses.js";
 import { addCard, openAddCardPopover, closeAddCardPopover, displayCards } from "./paymentMethods.js";
 import { User } from "./User.js";
+import { loaderIcon } from "./links.js";
 
 const cart = document.getElementById("shopping-cart-items");
 const subTotalPriceEl = document.getElementById("sub-total-price");
@@ -111,6 +112,7 @@ export function loadCheckoutList(){
 
 function showPopoverErrorMsg(id, message) {
   const loader = document.querySelector(".loader");
+  loader.src = loaderIcon;
   setTimeout(() => {
     if (loader) {
       loader.style.display = "none";
@@ -127,6 +129,7 @@ function showPopoverErrorMsg(id, message) {
 function confirmCheckout() {
     
     const loader = document.querySelector(".loader");
+    loader.src = loaderIcon;
     const innerPopoverCard =document.querySelector(".inner-popover-card");
     const innerPopoverAddress =document.querySelector(".inner-popover-address");
     const innerPopover =document.querySelector(".inner-popover");
