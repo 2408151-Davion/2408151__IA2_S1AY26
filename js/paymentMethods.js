@@ -13,7 +13,7 @@ export function addCard(cardNumber, cardHolder, expiryDate, expiryYear, cvvNumbe
     // const currentUserID = sessionStorage.getItem("userID");
     // const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
     // const user = users.find(u => u.id == currentUserID);
-    const userCards = User.getUserPmtMthds();
+    const userCards = User.getPmtMthds();
 
 
     if(loader){loader.style.display = "block"}
@@ -90,10 +90,10 @@ export function openAddCardPopover(e){
 }
 
 export function displayCards(){
-    const currentUserID = sessionStorage.getItem("userID");
-    const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
-    const user = users.find(u => u.id == currentUserID);
-    const userCards = user.pmtMethods;
+    // const currentUserID = sessionStorage.getItem("userID");
+    // const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
+    // const user = users.find(u => u.id == currentUserID);
+    const userCards = User.getPmtMthds();
 
     if(userCards < 1 || []){
         if(noCardInfo){noCardInfo.style.display = "block";}

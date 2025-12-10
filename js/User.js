@@ -94,7 +94,7 @@ export class User {
         return user?.cart || [];
     }
 
-    static getUserPmtMthds(){
+    static getPmtMthds(){
         const user = this.getCurrentUser();
         return user?.pmtMethods || [];
     }
