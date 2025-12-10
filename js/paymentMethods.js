@@ -90,21 +90,16 @@ export function openAddCardPopover(e){
 }
 
 export function displayCards(){
-    // const currentUserID = sessionStorage.getItem("userID");
-    // const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
-    // const user = users.find(u => u.id == currentUserID);
     const userCards = User.getPmtMthds();
 
-    if(userCards < 1 || []){
+    if(!userCards || userCards.length === 0){
         if(noCardInfo){noCardInfo.style.display = "block";}
         return;
     }
-    // noCardInfo.style.display = "none"
 
     const groupCards = {};
 
     userCards.forEach((card) => {
-        // total += Number(item.price);
         if(groupCards[card.id]){
             groupCards[card.id].count++;
         } else {
