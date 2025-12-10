@@ -3,7 +3,7 @@ import { removeAllItemsFromCart } from "./cart.js";
 import { saveAddress, openAddAddressPopover } from "./addresses.js";
 import { addCard, openAddCardPopover, closeAddCardPopover, displayCards } from "./paymentMethods.js";
 import { User } from "./User.js";
-import { loaderIcon } from "./links.js";
+import { invoice, loaderIcon } from "./links.js";
 
 const cart = document.getElementById("shopping-cart-items");
 const subTotalPriceEl = document.getElementById("sub-total-price");
@@ -289,7 +289,7 @@ function confirmCheckout() {
         }, 3000);
     }
 
-    if(invoiceNumber){window.location.replace(`/pages/cart/invoice.html?invoice=${invoiceNumber}`);}
+    if(invoiceNumber){window.location.replace(`${invoice}?invoice=${invoiceNumber}`);}
 
 
 }
