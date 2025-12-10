@@ -288,7 +288,7 @@ function confirmCheckout() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    addressUser?.innerHTML = sessionStorage.getItem("user");
+    if(addressUser){addressUser.innerHTML = sessionStorage.getItem("user");}
     shoppingCartImg?.src = checkOutBtnIcon;
     loaderImg?.src = loaderIcon;
 
