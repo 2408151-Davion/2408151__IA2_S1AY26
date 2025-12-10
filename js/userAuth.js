@@ -1,5 +1,6 @@
 import { showError, clearErrors, clearInputErrors } from "./utils.js";
 import {User} from "./User.js";
+import { index } from "./links.js";
 
 
 const tabRegister = document.getElementById('tab-register');
@@ -177,7 +178,7 @@ function login(identifier, password){
             sessionStorage.setItem("userID", user.id);
             sessionStorage.setItem("userTRN", user.trn);
             setTimeout(() => {
-                window.location.replace("http://127.0.0.1:5500/index.html");
+                window.location.replace(index);
             }, 50);
         } else {
             
