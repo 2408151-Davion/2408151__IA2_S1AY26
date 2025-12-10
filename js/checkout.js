@@ -28,10 +28,10 @@ const noCardInfo = document.getElementById("no-cards-info");
 const addressUser = document.getElementById("user-name");
 
 export function loadCheckoutList(){
-    const currentUserID = sessionStorage.getItem("userID");
-    const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
-    const user = users.find(u => u.id == currentUserID);
-    const userItems = user.cart;
+    // const currentUserID = sessionStorage.getItem("userID");
+    // const users = JSON.parse(localStorage.getItem("RegistrationData")) || [];
+    // const user = users.find(u => u.id == currentUserID);
+    const userItems = User.getUserCart();
 
     // const items = JSON.parse(localStorage.getItem("cart") || []);
     // const userItems = items.filter(item => item.user === currentUser);
