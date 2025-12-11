@@ -1,3 +1,8 @@
+// Davion Spaulding-Bowen, ID: 2408152
+// Terence Tucker, ID: 2405308
+// Jelani Harding, ID: 2307613
+
+
 import {getProduct, listRandomProducts} from "./products.js";
 import { index, checkOutBtnLink, checkoutBtnEl } from "./links.js";
 import { showMessage } from "./utils.js";

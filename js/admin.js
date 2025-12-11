@@ -1,3 +1,7 @@
+// Davion Spaulding-Bowen, ID: 2408152
+// Terence Tucker, ID: 2405308
+// Jelani Harding, ID: 2307613
+
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("login").addEventListener("submit", (e) => {
         e.preventDefault();

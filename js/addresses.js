@@ -1,4 +1,7 @@
-import { getUser } from "./User.js";
+// Davion Spaulding-Bowen, ID: 2408152
+// Terence Tucker, ID: 2405308
+// Jelani Harding, ID: 2307613
+
 import { User } from "./User.js";
 import { popoverDelay } from "./utils.js";
 

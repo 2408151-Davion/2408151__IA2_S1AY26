@@ -1,3 +1,8 @@
+// Davion Spaulding-Bowen, ID: 2408152
+// Terence Tucker, ID: 2405308
+// Jelani Harding, ID: 2307613
+
+
 const products = [
   {
     id: 1,
